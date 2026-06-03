@@ -1,0 +1,862 @@
+object frFolhaPagamento: TfrFolhaPagamento
+  Left = 161
+  Top = 103
+  BorderStyle = bsSingle
+  BorderWidth = 1
+  Caption = 'Folha de Pagamento'
+  ClientHeight = 632
+  ClientWidth = 963
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object gbFuncionario: TGroupBox
+    Left = 16
+    Top = 72
+    Width = 625
+    Height = 57
+    Caption = 'Funcion'#225'rio'
+    TabOrder = 0
+    object lbNome: TLabel
+      Left = 60
+      Top = 25
+      Width = 31
+      Height = 13
+      Caption = 'Nome:'
+    end
+    object lbCargo: TLabel
+      Left = 360
+      Top = 25
+      Width = 31
+      Height = 13
+      Caption = 'Cargo:'
+    end
+    object cbNome: TComboBox
+      Left = 104
+      Top = 22
+      Width = 169
+      Height = 19
+      Style = csOwnerDrawFixed
+      ItemHeight = 13
+      TabOrder = 0
+      OnSelect = cbNomeSelect
+    end
+    object edCargo: TEdit
+      Left = 400
+      Top = 21
+      Width = 193
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+    end
+  end
+  object gbProventos: TGroupBox
+    Left = 16
+    Top = 176
+    Width = 289
+    Height = 145
+    Caption = 'Proventos'
+    TabOrder = 2
+    object lbSalarioBase: TLabel
+      Left = 26
+      Top = 32
+      Width = 62
+      Height = 13
+      Caption = 'Sal'#225'rio Base:'
+    end
+    object lbHorasExtras: TLabel
+      Left = 28
+      Top = 58
+      Width = 63
+      Height = 13
+      Caption = 'Horas Extras:'
+    end
+    object lbOutros: TLabel
+      Left = 57
+      Top = 84
+      Width = 34
+      Height = 13
+      Caption = 'Outros:'
+    end
+    object lbTotal: TLabel
+      Left = 64
+      Top = 108
+      Width = 27
+      Height = 13
+      Caption = 'Total:'
+    end
+    object edSalarioBase: TEdit
+      Left = 104
+      Top = 28
+      Width = 169
+      Height = 21
+      TabOrder = 0
+      Text = '0,00'
+      OnEnter = edSalarioBaseEnter
+      OnExit = edSalarioBaseExit
+    end
+    object edHorasExtras: TEdit
+      Left = 104
+      Top = 54
+      Width = 169
+      Height = 21
+      TabOrder = 1
+      Text = '0,00'
+      OnEnter = edHorasExtrasEnter
+      OnExit = edHorasExtrasExit
+    end
+    object edOutros: TEdit
+      Left = 104
+      Top = 80
+      Width = 169
+      Height = 21
+      TabOrder = 2
+      Text = '0,00'
+      OnEnter = edOutrosEnter
+      OnExit = edOutrosExit
+    end
+    object edTotalProventos: TEdit
+      Left = 104
+      Top = 104
+      Width = 169
+      Height = 21
+      Hint = '0,00'
+      Enabled = False
+      ParentShowHint = False
+      ShowHint = False
+      TabOrder = 3
+      Text = '0,00'
+    end
+  end
+  object gbDescontos: TGroupBox
+    Left = 312
+    Top = 176
+    Width = 329
+    Height = 145
+    Caption = 'Descontos'
+    TabOrder = 3
+    object lbINSS: TLabel
+      Left = 66
+      Top = 32
+      Width = 28
+      Height = 13
+      Caption = 'INSS:'
+    end
+    object lbIrrf: TLabel
+      Left = 66
+      Top = 58
+      Width = 28
+      Height = 13
+      Caption = 'IRRF:'
+    end
+    object lbValeTransporte: TLabel
+      Left = 16
+      Top = 84
+      Width = 78
+      Height = 13
+      Caption = 'Vale Transporte:'
+    end
+    object lbTotalDescontos: TLabel
+      Left = 67
+      Top = 108
+      Width = 27
+      Height = 13
+      Caption = 'Total:'
+    end
+    object edInss: TEdit
+      Left = 104
+      Top = 28
+      Width = 193
+      Height = 21
+      Enabled = False
+      TabOrder = 0
+      Text = '0,00'
+    end
+    object edIrrf: TEdit
+      Left = 104
+      Top = 54
+      Width = 193
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+      Text = '0,00'
+    end
+    object edValeTransporte: TEdit
+      Left = 104
+      Top = 80
+      Width = 193
+      Height = 21
+      Enabled = False
+      TabOrder = 2
+      Text = '0,00'
+    end
+    object edTotalDescontos: TEdit
+      Left = 104
+      Top = 104
+      Width = 193
+      Height = 21
+      Enabled = False
+      TabOrder = 3
+      Text = '0,00'
+    end
+  end
+  object gbResultado: TGroupBox
+    Left = 16
+    Top = 336
+    Width = 625
+    Height = 97
+    Caption = 'Resultado'
+    TabOrder = 4
+    object lbResultadoTotalProventos: TLabel
+      Left = 12
+      Top = 28
+      Width = 78
+      Height = 13
+      Caption = 'Total Proventos:'
+    end
+    object lbResultadoTotalDescontos: TLabel
+      Left = 312
+      Top = 28
+      Width = 81
+      Height = 13
+      Caption = 'Total Descontos:'
+    end
+    object lbSalarioLiquido: TLabel
+      Left = 16
+      Top = 51
+      Width = 74
+      Height = 13
+      Caption = 'Sal'#225'rio L'#237'quido:'
+    end
+    object edResultadoTotalProventos: TEdit
+      Left = 104
+      Top = 24
+      Width = 169
+      Height = 21
+      Enabled = False
+      TabOrder = 0
+      Text = '0,00'
+    end
+    object edResultadoTotalDescontos: TEdit
+      Left = 400
+      Top = 24
+      Width = 193
+      Height = 21
+      Enabled = False
+      TabOrder = 1
+      Text = '0,00'
+    end
+    object edSalarioLiquido: TEdit
+      Left = 104
+      Top = 48
+      Width = 489
+      Height = 21
+      Enabled = False
+      TabOrder = 2
+      Text = '0,00'
+    end
+  end
+  object btLimpar: TButton
+    Left = 568
+    Top = 448
+    Width = 75
+    Height = 25
+    Caption = 'Limpar'
+    TabOrder = 5
+    OnClick = btLimparClick
+  end
+  object btSalvarFolha: TButton
+    Left = 488
+    Top = 448
+    Width = 75
+    Height = 25
+    Caption = 'Salvar'
+    Enabled = False
+    TabOrder = 6
+    OnClick = btSalvarFolhaClick
+  end
+  object btCalcular: TButton
+    Left = 408
+    Top = 448
+    Width = 75
+    Height = 25
+    Caption = 'Calcular'
+    TabOrder = 7
+    OnClick = btCalcularClick
+  end
+  object grFolhaPagamento: TDBGrid
+    Left = 16
+    Top = 488
+    Width = 625
+    Height = 120
+    DataSource = dsFolhaPagamento
+    TabOrder = 8
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    OnCellClick = grFolhaPagamentoCellClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'bdCODIGO'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'C'#243'digo'
+        Width = 39
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdCODIGOFUNCIONARIO'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'C'#243'digo funcion'#225'rio'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdNOME'
+        Title.Caption = 'Funcion'#225'rio'
+        Width = 79
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdCARGO'
+        Title.Caption = 'Cargo'
+        Width = 48
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdMES'
+        Title.Caption = 'M'#234's'
+        Width = 64
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdANO'
+        Title.Caption = 'Ano'
+        Width = 56
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdSALARIOBASE'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'Sal'#225'rio Base'
+        Width = 68
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdHORASEXTRAS'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'Horas Extras'
+        Width = 77
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdOUTROS'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'Outros'
+        Width = 47
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdTOTALPROVENTOS'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'Total Proventos'
+        Width = 83
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdINSS'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'INSS'
+        Width = 50
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdIRRF'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'IRRF'
+        Width = 39
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdVALETRANSPORTE'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'Vale Transporte'
+        Width = 138
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdTOTALDESCONTOS'
+        Title.Caption = 'Total Descontos'
+        Width = 111
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'bdSALARIOLIQUIDO'
+        Title.Alignment = taRightJustify
+        Title.Caption = 'Sal'#225'rio L'#237'quido'
+        Width = 124
+        Visible = True
+      end>
+  end
+  object btCadastrar: TButton
+    Left = 566
+    Top = 136
+    Width = 75
+    Height = 25
+    Caption = 'Cadastrar'
+    TabOrder = 9
+    OnClick = btCadastrarClick
+  end
+  object gbIdentificacao: TGroupBox
+    Left = 16
+    Top = 8
+    Width = 625
+    Height = 49
+    Caption = 'Identifica'#231#227'o'
+    TabOrder = 10
+    object lbCodigo: TLabel
+      Left = 56
+      Top = 23
+      Width = 36
+      Height = 13
+      Caption = 'C'#243'digo:'
+    end
+    object lbMes: TLabel
+      Left = 216
+      Top = 23
+      Width = 23
+      Height = 13
+      Caption = 'M'#234's:'
+    end
+    object lbAno: TLabel
+      Left = 368
+      Top = 23
+      Width = 22
+      Height = 13
+      Caption = 'Ano:'
+    end
+    object edCodigo: TEdit
+      Left = 104
+      Top = 19
+      Width = 89
+      Height = 21
+      TabOrder = 0
+      OnExit = edCodigoExit
+    end
+    object cbMes: TComboBox
+      Left = 248
+      Top = 19
+      Width = 105
+      Height = 22
+      Style = csOwnerDrawFixed
+      ItemHeight = 16
+      TabOrder = 1
+      Items.Strings = (
+        'Janeiro'
+        'Fevereiro'
+        'Mar'#231'o'
+        'Abril'
+        'Maio'
+        'Junho'
+        'Julho'
+        'Agosto'
+        'Setembro'
+        'Outubro'
+        'Novembro'
+        'Dezembro')
+    end
+    object edAno: TEdit
+      Left = 400
+      Top = 19
+      Width = 193
+      Height = 21
+      TabOrder = 2
+    end
+  end
+  object btConsultar: TButton
+    Left = 488
+    Top = 136
+    Width = 75
+    Height = 25
+    Caption = 'Consultar'
+    TabOrder = 11
+    OnClick = btConsultarClick
+  end
+  object pnConsultaFuncionarios: TPanel
+    Left = 672
+    Top = 264
+    Width = 489
+    Height = 329
+    BorderWidth = 2
+    BorderStyle = bsSingle
+    TabOrder = 12
+    Visible = False
+    object lbTituloFuncionario: TLabel
+      Left = 216
+      Top = 16
+      Width = 60
+      Height = 13
+      Caption = 'Funcion'#225'rios'
+    end
+    object lbBuscaNome: TLabel
+      Left = 32
+      Top = 60
+      Width = 31
+      Height = 13
+      Caption = 'Nome:'
+    end
+    object btFecharConsultaFuncionario: TButton
+      Left = 390
+      Top = 288
+      Width = 75
+      Height = 25
+      Caption = 'Fechar'
+      TabOrder = 0
+      OnClick = btFecharConsultaFuncionarioClick
+    end
+    object grFuncionarios: TDBGrid
+      Left = 16
+      Top = 136
+      Width = 449
+      Height = 145
+      DataSource = dsFuncionarios
+      TabOrder = 1
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      OnCellClick = grFuncionariosCellClick
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'bdCODIGOFUNCIONARIO'
+          Title.Alignment = taRightJustify
+          Title.Caption = 'C'#243'digo'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'bdNOMEFUNCIONARIO'
+          Title.Caption = 'Nome'
+          Width = 96
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'bdCARGO'
+          Title.Caption = 'Cargo'
+          Width = 73
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'bdTELEFONE'
+          Title.Caption = 'Telefone'
+          Width = 69
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'bdENDERECO'
+          Title.Caption = 'Endere'#231'o'
+          Visible = True
+        end>
+    end
+    object btBuscar: TButton
+      Left = 389
+      Top = 96
+      Width = 75
+      Height = 25
+      Caption = 'Buscar'
+      TabOrder = 2
+      OnClick = btBuscarClick
+    end
+    object edBuscaNome: TEdit
+      Left = 72
+      Top = 56
+      Width = 393
+      Height = 21
+      TabOrder = 3
+    end
+  end
+  object pnCadastroFuncionario: TPanel
+    Left = 680
+    Top = 16
+    Width = 385
+    Height = 233
+    BorderWidth = 2
+    BorderStyle = bsSingle
+    TabOrder = 1
+    Visible = False
+    object lbCadastroFuncionario: TLabel
+      Left = 144
+      Top = 16
+      Width = 112
+      Height = 13
+      Caption = 'Cadastro de funcion'#225'rio'
+    end
+    object lbCodigoFuncionario: TLabel
+      Left = 30
+      Top = 47
+      Width = 36
+      Height = 13
+      Caption = 'C'#243'digo:'
+    end
+    object lbNomeFuncionario: TLabel
+      Left = 35
+      Top = 71
+      Width = 31
+      Height = 13
+      Caption = 'Nome:'
+    end
+    object Cargo: TLabel
+      Left = 35
+      Top = 95
+      Width = 31
+      Height = 13
+      Caption = 'Cargo:'
+    end
+    object lbEndereco: TLabel
+      Left = 17
+      Top = 119
+      Width = 49
+      Height = 13
+      Caption = 'Endere'#231'o:'
+    end
+    object lbTelefone: TLabel
+      Left = 21
+      Top = 144
+      Width = 45
+      Height = 13
+      Caption = 'Telefone:'
+    end
+    object edCodigoFuncionario: TEdit
+      Left = 72
+      Top = 44
+      Width = 65
+      Height = 21
+      TabOrder = 0
+      OnExit = edCodigoFuncionarioExit
+    end
+    object edNomeFuncionario: TEdit
+      Left = 72
+      Top = 69
+      Width = 289
+      Height = 21
+      TabOrder = 1
+    end
+    object cbCargo: TComboBox
+      Left = 72
+      Top = 94
+      Width = 145
+      Height = 19
+      Style = csOwnerDrawFixed
+      ItemHeight = 13
+      TabOrder = 2
+      Items.Strings = (
+        'Analista'
+        'L'#237'der'
+        'Programador'
+        'PO'
+        'QA')
+    end
+    object edEndereco: TEdit
+      Left = 72
+      Top = 117
+      Width = 289
+      Height = 21
+      TabOrder = 3
+    end
+    object edTelefone: TEdit
+      Left = 72
+      Top = 142
+      Width = 289
+      Height = 21
+      TabOrder = 4
+    end
+    object btFechar: TButton
+      Left = 285
+      Top = 182
+      Width = 75
+      Height = 25
+      Caption = 'Fechar'
+      TabOrder = 5
+      OnClick = btFecharClick
+    end
+    object btSalvarFuncionario: TButton
+      Left = 204
+      Top = 182
+      Width = 75
+      Height = 25
+      Caption = 'Salvar'
+      TabOrder = 6
+      OnClick = btSalvarFuncionarioClick
+    end
+  end
+  object dsFolhaPagamento: TDataSource
+    DataSet = cdsFolhaPagamento
+    Left = 576
+    Top = 64
+  end
+  object cdsFuncionario: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'bdCODIGOFUNCIONARIO'
+        DataType = ftInteger
+      end
+      item
+        Name = 'bdNOMEFUNCIONARIO'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'bdCARGO'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'bdENDERECO'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'bdTELEFONE'
+        DataType = ftString
+        Size = 20
+      end>
+    IndexDefs = <
+      item
+        Name = 'iCODIGO'
+        Fields = 'bdCODIGOFUNCIONARIO'
+        Options = [ixPrimary, ixUnique]
+      end>
+    IndexName = 'iCODIGO'
+    Params = <>
+    StoreDefs = True
+    Left = 1024
+    Top = 32
+    Data = {
+      B60000009619E0BD010000001800000005000000000003000000B60013626443
+      4F4449474F46554E43494F4E4152494F04000100000000001162644E4F4D4546
+      554E43494F4E4152494F01004900000001000557494454480200020064000762
+      64434152474F01004900000001000557494454480200020014000A6264454E44
+      455245434F01004900000001000557494454480200020064000A626454454C45
+      464F4E4501004900000001000557494454480200020014000000}
+    object cdsFuncionariobdCODIGOFUNCIONARIO: TIntegerField
+      FieldName = 'bdCODIGOFUNCIONARIO'
+    end
+    object cdsFuncionariobdNOMEFUNCIONARIO: TStringField
+      FieldName = 'bdNOMEFUNCIONARIO'
+      Size = 100
+    end
+    object cdsFuncionariobdCARGO: TStringField
+      FieldName = 'bdCARGO'
+    end
+    object cdsFuncionariobdENDERECO: TStringField
+      FieldName = 'bdENDERECO'
+      Size = 100
+    end
+    object cdsFuncionariobdTELEFONE: TStringField
+      FieldName = 'bdTELEFONE'
+    end
+  end
+  object dsFuncionarios: TDataSource
+    DataSet = cdsFuncionario
+    Left = 1128
+    Top = 296
+  end
+  object cdsFolhaPagamento: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 608
+    Top = 64
+    Data = {
+      190200009619E0BD01000000180000000F000000000003000000190208626443
+      4F4449474F0400010000000000136264434F4449474F46554E43494F4E415249
+      4F04000100000000000662644E4F4D4501004900000001000557494454480200
+      02006400076264434152474F0100490000000100055749445448020002001400
+      0562644D45530100490000000100055749445448020002001400056264414E4F
+      04000100000000000D626453414C4152494F4241534508000400000001000753
+      5542545950450200490006004D6F6E6579000D6264484F524153455854524153
+      080004000000010007535542545950450200490006004D6F6E6579000862644F
+      5554524F53080004000000010007535542545950450200490006004D6F6E6579
+      00106264544F54414C50524F56454E544F530800040000000100075355425459
+      50450200490006004D6F6E657900066264494E53530800040000000100075355
+      42545950450200490006004D6F6E657900066264495252460800040000000100
+      07535542545950450200490006004D6F6E65790010626456414C455452414E53
+      504F525445080004000000010007535542545950450200490006004D6F6E6579
+      00106264544F54414C444553434F4E544F530800040000000100075355425459
+      50450200490006004D6F6E65790010626453414C4152494F4C49515549444F08
+      0004000000010007535542545950450200490006004D6F6E6579000000}
+    object cdsFolhaPagamentobdCODIGO: TIntegerField
+      FieldName = 'bdCODIGO'
+    end
+    object cdsFolhaPagamentobdCODIGOFUNCIONARIO: TIntegerField
+      FieldName = 'bdCODIGOFUNCIONARIO'
+    end
+    object cdsFolhaPagamentobdNOME: TStringField
+      FieldName = 'bdNOME'
+      Size = 100
+    end
+    object cdsFolhaPagamentobdCARGO: TStringField
+      FieldName = 'bdCARGO'
+    end
+    object cdsFolhaPagamentobdMES: TStringField
+      FieldName = 'bdMES'
+    end
+    object cdsFolhaPagamentobdANO: TIntegerField
+      FieldName = 'bdANO'
+    end
+    object cdsFolhaPagamentobdSALARIOBASE: TCurrencyField
+      FieldName = 'bdSALARIOBASE'
+    end
+    object cdsFolhaPagamentobdHORASEXTRAS: TCurrencyField
+      FieldName = 'bdHORASEXTRAS'
+    end
+    object cdsFolhaPagamentobdOUTROS: TCurrencyField
+      FieldName = 'bdOUTROS'
+    end
+    object cdsFolhaPagamentobdTOTALPROVENTOS: TCurrencyField
+      FieldName = 'bdTOTALPROVENTOS'
+    end
+    object cdsFolhaPagamentobdINSS: TCurrencyField
+      FieldName = 'bdINSS'
+    end
+    object cdsFolhaPagamentobdIRRF: TCurrencyField
+      FieldName = 'bdIRRF'
+    end
+    object cdsFolhaPagamentobdVALETRANSPORTE: TCurrencyField
+      FieldName = 'bdVALETRANSPORTE'
+    end
+    object cdsFolhaPagamentobdTOTALDESCONTOS: TCurrencyField
+      FieldName = 'bdTOTALDESCONTOS'
+    end
+    object cdsFolhaPagamentobdSALARIOLIQUIDO: TCurrencyField
+      FieldName = 'bdSALARIOLIQUIDO'
+    end
+  end
+end
