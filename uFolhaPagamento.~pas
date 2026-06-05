@@ -58,8 +58,6 @@ type
     lbSalarioLiquido: TLabel;
     edSalarioLiquido: TEdit;
     gbIdentificacao: TGroupBox;
-    lbCodigo: TLabel;
-    edCodigo: TEdit;
     dsFolhaPagamento: TDataSource;
     btConsultar: TButton;
     pnConsultaFuncionarios: TPanel;
@@ -96,6 +94,11 @@ type
     cbMes: TComboBox;
     edAno: TEdit;
     lbAno: TLabel;
+    GroupBox1: TGroupBox;
+    edCodigo: TEdit;
+    lbCodigo: TLabel;
+    btDeletarFuncionario: TButton;
+    btDeletarFolha: TButton;
     procedure btCadastrarClick(Sender: TObject);
     procedure btFecharClick(Sender: TObject);
     procedure btSalvarFuncionarioClick(Sender: TObject);
@@ -116,6 +119,9 @@ type
     procedure grFuncionariosCellClick(Column: TColumn);
     procedure grFolhaPagamentoCellClick(Column: TColumn);
     procedure edCodigoFuncionarioExit(Sender: TObject);
+    procedure edCodigoEnter(Sender: TObject);
+    procedure btDeletarFuncionarioClick(Sender: TObject);
+    procedure btDeletarFolhaClick(Sender: TObject);
   private
     { Private declarations }
 
@@ -148,17 +154,23 @@ type
     // Resultado
     wSalarioLiquido: Currency;
 
+    // Tela
+    wConsultaAtiva: Boolean;
+
     procedure pCadastrarFuncionario;
     procedure pEditarFuncionario;
     procedure pBuscarFuncionario;
+    procedure pDeletarFuncionario;
     procedure pSalvarFolha;
     procedure pBuscarFolha;
     procedure pCarregarFolha;
+    procedure pDeletarFolha;
     procedure pCalcularTotalProventos;
     procedure pCalcularTotalDescontos;
     procedure pExibirCadastro;
     procedure pModoCadastro;
     procedure pModoConsulta;
+    procedure pAbrirConsulta;
     procedure pLimparCampos;
     procedure pLimparCamposCadastroFuncionario;
 
@@ -262,6 +274,7 @@ begin
   pSalvarFolha;
 
   pLimparCampos;
+  cbNome.SetFocus;
 
   btSalvarFolha.Enabled := False;
 end;
@@ -269,6 +282,7 @@ end;
 procedure TfrFolhaPagamento.btLimparClick(Sender: TObject);
 begin
   pLimparCampos;
+  cbNome.SetFocus;
 end;
 
 procedure TfrFolhaPagamento.btFecharClick(Sender: TObject);
@@ -277,6 +291,11 @@ begin
   pnCadastroFuncionario.Left := 648;
 
   pLimparCamposCadastroFuncionario;
+
+  if wConsultaAtiva then
+     pAbrirConsulta;
+
+  wConsultaAtiva := False;
 end;
 
 procedure TfrFolhaPagamento.btFecharConsultaFuncionarioClick(
@@ -301,7 +320,8 @@ end;
 
 procedure TfrFolhaPagamento.edCodigoFuncionarioExit(Sender: TObject);
 begin
-  pBuscarFuncionario;
+  if edCodigoFuncionario.Text <> '' then
+     pBuscarFuncionario;
 end;
 
 procedure TfrFolhaPagamento.edSalarioBaseEnter(Sender: TObject);
@@ -388,7 +408,7 @@ begin
 
    cbNome.Items.Add(wNomeFuncionario);
 
-   ShowMessage('Cadastro Realizado com Sucesso');
+   ShowMessage('Cadastro realizado com sucesso');
 
    pLimparCamposCadastroFuncionario;
 end;
@@ -415,16 +435,22 @@ begin
 
   cdsFolhaPagamento.IndexFieldNames := 'bdCODIGOFUNCIONARIO';
 
-  if cdsFolhaPagamento.FindKey([wCodigoFuncionario]) then
-     begin
-       cdsFolhaPagamento.Edit;
+  cdsFolhaPagamento.First;
 
-       cdsFolhaPagamentobdNOME.AsString := wNomeFuncionario;
-       cdsFolhaPagamentobdCARGO.AsString := wCargoFuncionario;
+  while not cdsFolhaPagamento.Eof do
+    begin
+       if cdsFolhaPagamentobdCODIGOFUNCIONARIO.AsInteger = wCodigoFuncionario then
+          begin
+            cdsFolhaPagamento.Edit;
 
-       cdsFolhaPagamento.Post;
-     end;
+            cdsFolhaPagamentobdNOME.AsString := wNomeFuncionario;
 
+            cdsFolhaPagamento.Post;
+          end;
+
+       cdsFolhaPagamento.Next;
+    end;
+    
    ShowMessage('Cadastro Editado com Sucesso');
 
    pLimparCamposCadastroFuncionario;
@@ -452,6 +478,8 @@ begin
        cbCargo.ItemIndex      := cbCargo.Items.IndexOf(cdsFuncionariobdCARGO.AsString);
        edEndereco.Text        := cdsFuncionariobdENDERECO.AsString;
        edTelefone.Text        := cdsFuncionariobdTELEFONE.AsString;
+
+       btDeletarFuncionario.Enabled := True;
      end;
 end;
 
@@ -461,10 +489,17 @@ begin
 
   if not cdsFolhaPagamento.FindKey([edCodigo.Text]) then
      begin
-       cdsFolhaPagamento.Insert;
+       cdsFolhaPagamento.Last;
+
+       if cdsFolhaPagamento.RecordCount = 0 then
+          wCodigoFolha := 1
+       else
+          wCodigoFolha := cdsFolhaPagamentobdCODIGO.AsInteger + 1;
+          cdsFolhaPagamento.Insert;
      end
   else
      begin
+       wCodigoFolha := cdsFolhaPagamentobdCODIGO.AsInteger;
        cdsFolhaPagamento.Edit;
      end;
 
@@ -491,8 +526,6 @@ procedure TfrFolhaPagamento.pBuscarFolha;
 var
   wCodigoBusca: Integer;
 begin
-  cdsFolhaPagamento.IndexFieldNames := 'bdCODIGO';
-
   wCodigoBusca := StrToIntDef(edCodigo.Text,0);
 
   if wCodigoBusca = 0 then
@@ -502,34 +535,42 @@ begin
        edCodigo.SetFocus;
        Exit;
      end;
-
-  if cdsFolhaPagamento.FindKey([edCodigo.Text]) then
-     begin
-       pCarregarFolha;
-     end
-  else
-    Exit;
+     
+  pCarregarFolha;
 end;
 
 procedure TfrFolhaPagamento.pCarregarFolha;
 begin
-  btSalvarFolha.Enabled := False;
-  cbNome.Enabled  := False;
+  cdsFolhaPagamento.IndexFieldNames := 'bdCODIGO';
 
-  cbNome.ItemIndex               := cbNome.Items.IndexOf(cdsFolhaPagamentobdNOME.AsString);
-  edCargo.Text 	    	           := cdsFolhaPagamentobdCARGO.AsString;
-  edSalarioBase.Text 	           := CurrToStr(cdsFolhaPagamentobdSALARIOBASE.AsCurrency);
-  edHorasExtras.Text 	           := CurrToStr(cdsFolhaPagamentobdHORASEXTRAS.AsCurrency);
-  edOutros.Text	    	 	         := CurrToStr(cdsFolhaPagamentobdOUTROS.AsCurrency);
-  edINSS.Text 		 		           := CurrToStr(cdsFolhaPagamentobdINSS.AsCurrency);
-  edIRRF.Text 		 		           := CurrToStr(cdsFolhaPagamentobdIRRF.AsCurrency);
-  edValeTransporte.Text 		     := CurrToStr(cdsFolhaPagamentobdVALETRANSPORTE.AsCurrency);
-  edTotalProventos.Text  		     := CurrToStr(cdsFolhaPagamentobdTOTALPROVENTOS.AsCurrency);
-  edTotalDescontos.Text 		     := CurrToStr(cdsFolhaPagamentobdTOTALDESCONTOS.AsCurrency);
-  edResultadoTotalProventos.Text := CurrToStr(cdsFolhaPagamentobdTOTALPROVENTOS.AsCurrency);
-  edResultadoTotalDescontos.Text := CurrToStr(cdsFolhaPagamentobdTOTALDESCONTOS.AsCurrency);
-  edSalarioLiquido.Text          := CurrToStr(cdsFolhaPagamentobdSALARIOLIQUIDO.AsCurrency);
-  wSalarioBase                   := cdsFolhaPagamentobdSALARIOBASE.AsCurrency;
+  if cdsFolhaPagamento.FindKey([edCodigo.Text]) then
+     begin
+       btSalvarFolha.Enabled := False;
+       cbNome.Enabled  := False;
+
+       cbMes.ItemIndex                := cbMes.Items.IndexOf(cdsFolhaPagamentobdMES.AsString);
+       edAno.Text                     := cdsFolhaPagamentobdANO.AsString;
+       cbNome.ItemIndex               := cbNome.Items.IndexOf(cdsFolhaPagamentobdNOME.AsString);
+       edCargo.Text 	    	          := cdsFolhaPagamentobdCARGO.AsString;
+       edSalarioBase.Text 	          := CurrToStr(cdsFolhaPagamentobdSALARIOBASE.AsCurrency);
+       edHorasExtras.Text 	          := CurrToStr(cdsFolhaPagamentobdHORASEXTRAS.AsCurrency);
+       edOutros.Text	    	 	        := CurrToStr(cdsFolhaPagamentobdOUTROS.AsCurrency);
+       edINSS.Text 		 		            := CurrToStr(cdsFolhaPagamentobdINSS.AsCurrency);
+       edIRRF.Text 		 		            := CurrToStr(cdsFolhaPagamentobdIRRF.AsCurrency);
+       edValeTransporte.Text 		      := CurrToStr(cdsFolhaPagamentobdVALETRANSPORTE.AsCurrency);
+       edTotalProventos.Text  		    := CurrToStr(cdsFolhaPagamentobdTOTALPROVENTOS.AsCurrency);
+       edTotalDescontos.Text 		      := CurrToStr(cdsFolhaPagamentobdTOTALDESCONTOS.AsCurrency);
+       edResultadoTotalProventos.Text := CurrToStr(cdsFolhaPagamentobdTOTALPROVENTOS.AsCurrency);
+       edResultadoTotalDescontos.Text := CurrToStr(cdsFolhaPagamentobdTOTALDESCONTOS.AsCurrency);
+       edSalarioLiquido.Text          := CurrToStr(cdsFolhaPagamentobdSALARIOLIQUIDO.AsCurrency);
+       wSalarioBase                   := cdsFolhaPagamentobdSALARIOBASE.AsCurrency;
+
+       btDeletarFolha.Enabled := True;
+     end
+  else
+    begin
+      ShowMessage('Folha não encontrada');
+    end;
 end;
 
 procedure TfrFolhaPagamento.pCalcularTotalProventos;
@@ -582,29 +623,21 @@ end;
 
 procedure TfrFolhaPagamento.pModoCadastro;
 begin
-  lbCadastroFuncionario.Caption := 'Cadastro de Funcionário';
-  edCodigoFuncionario.Enabled   := True;
-  edNomeFuncionario.Enabled     := True;
-  cbCargo.Enabled               := True;
-  edEndereco.Enabled            := True;
-  edTelefone.Enabled            := True;
-  btSalvarFuncionario.Visible   := True;
+  lbCadastroFuncionario.Caption := 'Cadastro de funcionário';
+  btDeletarFuncionario.Enabled := False;
 end;
 
 procedure TfrFolhaPagamento.pModoConsulta;
 begin
-  lbCadastroFuncionario.Caption := 'Consulta de Funcionário';
-  edCodigoFuncionario.Enabled   := False;
-  edNomeFuncionario.Enabled     := False;
-  cbCargo.Enabled               := False;
-  edEndereco.Enabled            := False;
-  edTelefone.Enabled            := False;
-  btSalvarFuncionario.Visible   := False;
+  lbCadastroFuncionario.Caption := 'Consulta de funcionário';
+  wConsultaAtiva := True;
+  btDeletarFuncionario.Enabled := True;
 end;
 
 procedure TfrFolhaPagamento.pLimparCampos;
 begin
-  edCodigo.Clear;
+  cbMes.ItemIndex := -1;
+  edAno.Clear;
   cbNome.ItemIndex := -1;
   edCargo.Clear;
   edSalarioBase.Text := '0,00';
@@ -619,10 +652,11 @@ begin
   edResultadoTotalDescontos.Text := '0,00';
   edSalarioLiquido.Text := '0,00';
   wSalarioBase := 0;
+  edCodigo.Clear;
 
   cbNome.Enabled := True;
 
-  cbNome.SetFocus;
+  // cbNome.SetFocus;
 end;
 
 procedure TfrFolhaPagamento.pLimparCamposCadastroFuncionario;
@@ -642,27 +676,27 @@ begin
   Result := True;
   if wCodigoFuncionario = 0 then
      begin
-       ShowMessage('Informe o Código do Funcionário');
+       ShowMessage('Informe o código do funcionário');
        Result := False;
      end
   else if wNomeFuncionario = '' then
      begin
-       ShowMessage('Informe o Nome do Funcionário');
+       ShowMessage('Informe o nome do funcionário');
        Result := False;
      end
   else if wCargoFuncionario = '' then
      begin
-       ShowMessage('Informe o Cargo do Funcionário');
+       ShowMessage('Informe o cargo do funcionário');
        Result := False;
      end
   else if wEnderecoFuncionario = '' then
      begin
-       ShowMessage('Informe o Endereço do Funcionário');
+       ShowMessage('Informe o endereço do funcionário');
        Result := False;
      end
   else if wTelefoneFuncionario = '' then
      begin
-       ShowMessage('Informe o Telefone do Funcionário');
+       ShowMessage('Informe o telefone do funcionário');
        Result := False;
      end;
 end;
@@ -672,34 +706,27 @@ begin
   Result := True;
   if wSalarioBase = 0 then
      begin
-       ShowMessage('Informe o Salário Base');
+       ShowMessage('Informe o salário base');
        Result := False;
      end;
 end;
 
 function TfrFolhaPagamento.fValidarCamposFolha: Boolean;
 begin
-  wCodigoFolha := StrToIntDef(edCodigo.Text,0);
   wMesFolha    := cbMes.Text;
   wAnoFolha    := StrToIntDef(edAno.Text,0);
   wNomeFolha   := cbNome.Text;
   wCargoFolha  := edCargo.Text;
 
   Result := True;
-  if wCodigoFolha = 0 then
-    begin
-      ShowMessage('Informe o código');
-      Result := False;
-    end
-  else
   if wNomeFolha = '' then
      begin
-       ShowMessage('Informe o Nome');
+       ShowMessage('Informe o nome');
        Result := False;
      end
   else if wCargoFolha = '' then
      begin
-       ShowMessage('Informe o Cargo');
+       ShowMessage('Informe o cargo');
        Result := False;
      end
   else if wMesFolha = '' then
@@ -709,10 +736,12 @@ begin
      end
   else if wAnoFolha = 0 then
      begin
-       ShowMessage('Informe o Ano');
+       ShowMessage('Informe o ano');
        Result := False;
      end;
 end;
+
+// novas adicoes
 
 function TfrFolhaPagamento.fCalcularInss: Currency;
 var
@@ -771,6 +800,76 @@ end;
 function TfrFolhaPagamento.fCalcularTerceiraFaixa: Currency;
 begin
   Result := (4354.27 - 2902.84) * 0.12;
+end;
+
+procedure TfrFolhaPagamento.edCodigoEnter(Sender: TObject);
+begin
+  pLimparCampos;
+end;
+
+procedure TfrFolhaPagamento.pAbrirConsulta;
+begin
+  pnConsultaFuncionarios.Visible := True;
+  pnConsultaFuncionarios.Top  := 100;
+  pnConsultaFuncionarios.Left := 100;
+end;
+
+procedure TfrFolhaPagamento.btDeletarFuncionarioClick(Sender: TObject);
+begin
+  pDeletarFuncionario;
+end;
+
+procedure TfrFolhaPagamento.pDeletarFuncionario;
+begin
+  cdsFuncionario.IndexFieldNames := 'bdCODIGOFUNCIONARIO';
+
+  if cdsFuncionario.FindKey([edCodigoFuncionario.Text]) then
+     begin
+       if MessageDlg('Deseja excluir este funcionário?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+          begin
+            cdsFuncionario.Delete;
+            ShowMessage('Funcionário deletado com sucesso');
+            pLimparCamposCadastroFuncionario;
+            btDeletarFuncionario.Enabled := False;
+          end
+       else
+         begin
+           Exit;
+         end;
+     end
+   else
+     begin
+        ShowMessage('Funcionário não encontrado');
+     end
+end;
+
+procedure TfrFolhaPagamento.pDeletarFolha;
+begin
+  cdsFolhaPagamento.IndexFieldNames := 'bdCODIGO';
+
+  if cdsFolhaPagamento.FindKey([edCodigo.Text]) then
+     begin
+        if MessageDlg('Deseja excluir esta folha?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+           begin
+             cdsFolhaPagamento.Delete;
+             ShowMessage('Folha deletada com sucesso');
+             pLimparCampos;
+             btDeletarFolha.Enabled := False;
+           end
+        else
+           begin
+             Exit;
+           end;
+      end
+   else
+      begin
+        ShowMessage('Funcionário não encontrado');
+      end
+end;
+
+procedure TfrFolhaPagamento.btDeletarFolhaClick(Sender: TObject);
+begin
+  pDeletarFolha;
 end;
 
 end.
