@@ -122,6 +122,7 @@ type
     procedure edCodigoEnter(Sender: TObject);
     procedure btDeletarFuncionarioClick(Sender: TObject);
     procedure btDeletarFolhaClick(Sender: TObject);
+    procedure edCodigoKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
 
@@ -178,6 +179,7 @@ type
     function fValidarCamposFuncionario: Boolean;
     function fValidarCamposFolha: Boolean;
     function fValidarCampoSalarioBase: Boolean;
+    function fExisteFolhaFuncionarioMesAno: Boolean;
 
     // INSS
 
@@ -185,6 +187,7 @@ type
     function fCalcularPrimeiraFaixa: Currency;
     function fCalcularSegundaFaixa: Currency;
     function fCalcularTerceiraFaixa: Currency;
+
 
   public
     { Public declarations }
@@ -489,6 +492,12 @@ begin
 
   if not cdsFolhaPagamento.FindKey([edCodigo.Text]) then
      begin
+       if fExisteFolhaFuncionarioMesAno then
+          begin
+            ShowMessage('Funcionário já possui folha neste mês e ano');
+            Exit;
+          end;
+
        cdsFolhaPagamento.Last;
 
        if cdsFolhaPagamento.RecordCount = 0 then
@@ -496,8 +505,9 @@ begin
        else
           wCodigoFolha := cdsFolhaPagamentobdCODIGO.AsInteger + 1;
           cdsFolhaPagamento.Insert;
-     end
-  else
+       end
+     
+      else
      begin
        wCodigoFolha := cdsFolhaPagamentobdCODIGO.AsInteger;
        cdsFolhaPagamento.Edit;
@@ -545,8 +555,13 @@ begin
 
   if cdsFolhaPagamento.FindKey([edCodigo.Text]) then
      begin
+       cdsFuncionario.IndexFieldNames := 'bdCODIGOFUNCIONARIO';
+       cdsFuncionario.FindKey([cdsFolhaPagamentobdCODIGOFUNCIONARIO.AsInteger]);
+
        btSalvarFolha.Enabled := False;
        cbNome.Enabled  := False;
+       cbMes.Enabled   := False;
+       edAno.Enabled   := False;
 
        cbMes.ItemIndex                := cbMes.Items.IndexOf(cdsFolhaPagamentobdMES.AsString);
        edAno.Text                     := cdsFolhaPagamentobdANO.AsString;
@@ -655,6 +670,8 @@ begin
   edCodigo.Clear;
 
   cbNome.Enabled := True;
+  cbMes.Enabled  := True;
+  edAno.Enabled  := True;
 
   // cbNome.SetFocus;
 end;
@@ -671,34 +688,34 @@ end;
 // Validacoes
 
 function TfrFolhaPagamento.fValidarCamposFuncionario: Boolean;
-
+var
+  wMensagem: String;
 begin
   Result := True;
+
+  wMensagem := 'Informe o ';
+
   if wCodigoFuncionario = 0 then
-     begin
-       ShowMessage('Informe o código do funcionário');
-       Result := False;
-     end
-  else if wNomeFuncionario = '' then
-     begin
-       ShowMessage('Informe o nome do funcionário');
-       Result := False;
-     end
-  else if wCargoFuncionario = '' then
-     begin
-       ShowMessage('Informe o cargo do funcionário');
-       Result := False;
-     end
-  else if wEnderecoFuncionario = '' then
-     begin
-       ShowMessage('Informe o endereço do funcionário');
-       Result := False;
-     end
-  else if wTelefoneFuncionario = '' then
-     begin
-       ShowMessage('Informe o telefone do funcionário');
-       Result := False;
-     end;
+    wMensagem := wMensagem + 'código, ';
+
+  if wNomeFuncionario = '' then
+    wMensagem := wMensagem + 'nome, ';
+
+  if wCargoFuncionario = '' then
+    wMensagem := wMensagem + 'cargo, ';
+
+  if wEnderecoFuncionario = '' then
+    wMensagem := wMensagem + 'endereço, ';
+
+  if wTelefoneFuncionario = '' then
+    wMensagem := wMensagem + 'telefone, ';
+
+  if wMensagem <> 'Informe o ' then
+  begin
+    Delete(wMensagem, Length(wMensagem)-1, 2);
+    ShowMessage(wMensagem);
+    Result := False;
+  end;
 end;
 
 function TfrFolhaPagamento.fValidarCampoSalarioBase: Boolean;
@@ -712,6 +729,8 @@ begin
 end;
 
 function TfrFolhaPagamento.fValidarCamposFolha: Boolean;
+var
+  wMensagem: String;
 begin
   wMesFolha    := cbMes.Text;
   wAnoFolha    := StrToIntDef(edAno.Text,0);
@@ -719,29 +738,38 @@ begin
   wCargoFolha  := edCargo.Text;
 
   Result := True;
+
+  wMensagem := 'Informe o ';
+
+  if wMesFolha = '' then
+     begin
+       wMensagem := wMensagem + 'mês, ';
+     end;
+
+  if wAnoFolha = 0 then
+     begin
+       wMensagem := wMensagem + 'ano, ';
+     end;
+
   if wNomeFolha = '' then
      begin
-       ShowMessage('Informe o nome');
-       Result := False;
-     end
-  else if wCargoFolha = '' then
+       wMensagem := wMensagem + 'nome, ';
+     end;
+
+  if wCargoFolha = '' then
      begin
-       ShowMessage('Informe o cargo');
-       Result := False;
-     end
-  else if wMesFolha = '' then
+       wMensagem := wMensagem + 'cargo, ';
+     end;
+
+  if wMensagem <> 'Informe o ' then
      begin
-       ShowMessage('Informe o mês');
-       Result := False;
-     end
-  else if wAnoFolha = 0 then
-     begin
-       ShowMessage('Informe o ano');
+       Delete(wMensagem, Length(wMensagem) - 1, 2);
+       ShowMessage(wMensagem);
        Result := False;
      end;
 end;
 
-// novas adicoes
+// Adicoes
 
 function TfrFolhaPagamento.fCalcularInss: Currency;
 var
@@ -750,6 +778,7 @@ var
   wTerceiraFaixa: Currency;
   wQuartaFaixa: Currency;
 begin
+  wPrimeiraFaixa := 0;
   wSegundaFaixa:= 0;
   wTerceiraFaixa:= 0;
   wQuartaFaixa:= 0;
@@ -761,15 +790,15 @@ begin
   else if (wSalarioBase > 1621) and (wSalarioBase <= 2902.84) then
     begin
       wPrimeiraFaixa := fCalcularPrimeiraFaixa;
-      wSegundaFaixa  := fCalcularSegundaFaixa;
+      wSegundaFaixa := (wSalarioBase - 1621) * 0.09;
      end
   else if (wSalarioBase > 2902.84) and (wSalarioBase <= 4354.27) then
      begin
       wPrimeiraFaixa := fCalcularPrimeiraFaixa;
       wSegundaFaixa  := fCalcularSegundaFaixa;
-      wTerceiraFaixa := fCalcularTerceiraFaixa;
+      wTerceiraFaixa := (wSalarioBase - 2902.84) * 0.12;
      end
-  else if (wSalarioBase > 4354.27) and (wSalarioBase <= 8157.41) then
+  else if (wSalarioBase > 4354.27) and (wSalarioBase <= 8475.55) then
      begin
       wPrimeiraFaixa := fCalcularPrimeiraFaixa;
       wSegundaFaixa  := fCalcularSegundaFaixa;
@@ -781,7 +810,7 @@ begin
        wPrimeiraFaixa := fCalcularPrimeiraFaixa;
        wSegundaFaixa  := fCalcularSegundaFaixa;
        wTerceiraFaixa := fCalcularTerceiraFaixa;
-       wQuartaFaixa   := (8157.41 - 4354.27) * 0.14;
+       wQuartaFaixa   := (8475.55 - 4354.27) * 0.14;
      end;
 
   Result := wPrimeiraFaixa + wSegundaFaixa + wTerceiraFaixa + wQuartaFaixa;
@@ -828,6 +857,7 @@ begin
        if MessageDlg('Deseja excluir este funcionário?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
           begin
             cdsFuncionario.Delete;
+            cbNome.Items.Delete(cbNome.Items.IndexOf(cdsFuncionariobdNOMEFUNCIONARIO.AsString));
             ShowMessage('Funcionário deletado com sucesso');
             pLimparCamposCadastroFuncionario;
             btDeletarFuncionario.Enabled := False;
@@ -870,6 +900,35 @@ end;
 procedure TfrFolhaPagamento.btDeletarFolhaClick(Sender: TObject);
 begin
   pDeletarFolha;
+end;
+
+function TfrFolhaPagamento.fExisteFolhaFuncionarioMesAno: Boolean;
+begin
+  Result := False;
+
+  cdsFolhaPagamento.First;
+
+  while not cdsFolhaPagamento.Eof do
+    begin
+      if (cdsFolhaPagamentobdCODIGOFUNCIONARIO.AsInteger = cdsFuncionariobdCODIGOFUNCIONARIO.AsInteger) and (cdsFolhaPagamentobdMES.AsString = cbMes.Text) and (cdsFolhaPagamentobdANO.AsString = edAno.Text) then
+         begin
+           Result := True;
+           Exit;
+         end;
+      cdsFolhaPagamento.Next;
+    end;
+end;
+
+procedure TfrFolhaPagamento.edCodigoKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    if edCodigo.Text <> '' then
+      pBuscarFolha;
+
+    Key := #0;
+  end;
 end;
 
 end.
