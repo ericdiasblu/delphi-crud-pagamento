@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 403
-  Top = 128
+  Left = 243
+  Top = 17
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
-  ClientHeight = 698
-  ClientWidth = 660
+  ClientHeight = 702
+  ClientWidth = 659
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -61,7 +61,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 289
     Height = 145
     Caption = 'Proventos'
-    TabOrder = 2
+    TabOrder = 4
     object lbSalarioBase: TLabel
       Left = 31
       Top = 32
@@ -139,7 +139,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 329
     Height = 145
     Caption = 'Descontos'
-    TabOrder = 3
+    TabOrder = 5
     object lbINSS: TLabel
       Left = 66
       Top = 32
@@ -211,7 +211,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 97
     Caption = 'Resultado'
-    TabOrder = 4
+    TabOrder = 6
     object lbResultadoTotalProventos: TLabel
       Left = 13
       Top = 36
@@ -229,7 +229,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     object lbSalarioLiquido: TLabel
       Left = 18
       Top = 59
-      Width = 73
+      Width = 74
       Height = 13
       Caption = 'Sal'#225'rio L'#237'quido:'
     end
@@ -267,7 +267,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 75
     Height = 25
     Caption = 'Limpar'
-    TabOrder = 5
+    TabOrder = 8
     OnClick = btLimparClick
   end
   object btSalvarFolha: TButton
@@ -277,7 +277,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Height = 25
     Caption = 'Salvar'
     Enabled = False
-    TabOrder = 6
+    TabOrder = 9
     OnClick = btSalvarFolhaClick
   end
   object btCalcular: TButton
@@ -295,7 +295,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 129
     DataSource = dsFolhaPagamento
-    TabOrder = 8
+    TabOrder = 11
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -424,7 +424,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 75
     Height = 25
     Caption = 'Cadastrar'
-    TabOrder = 9
+    TabOrder = 3
     OnClick = btCadastrarClick
   end
   object gbIdentificacao: TGroupBox
@@ -433,7 +433,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 49
     Caption = 'Identifica'#231#227'o'
-    TabOrder = 10
+    TabOrder = 12
     object lbMes: TLabel
       Left = 71
       Top = 24
@@ -476,6 +476,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 193
       Height = 21
       TabOrder = 1
+      OnExit = edAnoExit
     end
   end
   object btConsultar: TButton
@@ -484,17 +485,17 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 75
     Height = 25
     Caption = 'Consultar'
-    TabOrder = 11
+    TabOrder = 2
     OnClick = btConsultarClick
   end
   object pnConsultaFuncionarios: TPanel
     Left = 672
-    Top = 264
+    Top = 352
     Width = 489
     Height = 329
     BorderWidth = 2
     BorderStyle = bsSingle
-    TabOrder = 12
+    TabOrder = 13
     Visible = False
     object lbTituloFuncionario: TLabel
       Left = 216
@@ -602,36 +603,36 @@ object frFolhaPagamento: TfrFolhaPagamento
       Caption = 'Cadastro de funcion'#225'rio'
     end
     object lbCodigoFuncionario: TLabel
-      Left = 30
+      Left = 28
       Top = 47
       Width = 36
       Height = 13
       Caption = 'C'#243'digo:'
     end
     object lbNomeFuncionario: TLabel
-      Left = 35
+      Left = 33
       Top = 71
       Width = 31
       Height = 13
       Caption = 'Nome:'
     end
     object Cargo: TLabel
-      Left = 35
-      Top = 95
+      Left = 33
+      Top = 97
       Width = 31
       Height = 13
       Caption = 'Cargo:'
     end
     object lbEndereco: TLabel
-      Left = 17
-      Top = 119
+      Left = 15
+      Top = 120
       Width = 49
       Height = 13
       Caption = 'Endere'#231'o:'
     end
     object lbTelefone: TLabel
-      Left = 21
-      Top = 144
+      Left = 19
+      Top = 145
       Width = 45
       Height = 13
       Caption = 'Telefone:'
@@ -668,14 +669,14 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
     object edEndereco: TEdit
       Left = 72
-      Top = 117
+      Top = 118
       Width = 289
       Height = 21
       TabOrder = 3
     end
     object edTelefone: TEdit
       Left = 72
-      Top = 142
+      Top = 143
       Width = 289
       Height = 21
       TabOrder = 4
@@ -708,14 +709,29 @@ object frFolhaPagamento: TfrFolhaPagamento
       TabOrder = 7
       OnClick = btDeletarFuncionarioClick
     end
+    object btCadastrarCargo: TButton
+      Left = 224
+      Top = 93
+      Width = 25
+      Height = 19
+      Caption = '+'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 8
+      OnClick = btCadastrarCargoClick
+    end
   end
-  object GroupBox1: TGroupBox
+  object gbConsulta: TGroupBox
     Left = 16
     Top = 488
     Width = 625
     Height = 49
     Caption = 'Consulta'
-    TabOrder = 13
+    TabOrder = 14
     object lbCodigo: TLabel
       Left = 55
       Top = 20
@@ -723,15 +739,39 @@ object frFolhaPagamento: TfrFolhaPagamento
       Height = 13
       Caption = 'C'#243'digo:'
     end
+    object Label1: TLabel
+      Left = 334
+      Top = 20
+      Width = 56
+      Height = 13
+      Caption = 'Ordena'#231#227'o:'
+    end
     object edCodigo: TEdit
       Left = 104
       Top = 16
       Width = 169
       Height = 21
+      TabStop = False
       TabOrder = 0
       OnEnter = edCodigoEnter
       OnExit = edCodigoExit
       OnKeyPress = edCodigoKeyPress
+    end
+    object cbOrdenacao: TComboBox
+      Left = 400
+      Top = 16
+      Width = 193
+      Height = 22
+      Style = csOwnerDrawFixed
+      ItemHeight = 16
+      TabOrder = 1
+      OnSelect = cbOrdenacaoSelect
+      Items.Strings = (
+        'Folha'
+        'Funcion'#225'rio'
+        'Cargo'
+        'M'#234's'
+        'Ano')
     end
   end
   object btDeletarFolha: TButton
@@ -741,8 +781,94 @@ object frFolhaPagamento: TfrFolhaPagamento
     Height = 25
     Caption = 'Deletar'
     Enabled = False
-    TabOrder = 14
+    TabOrder = 10
     OnClick = btDeletarFolhaClick
+  end
+  object pnCargo: TPanel
+    Left = 1072
+    Top = 16
+    Width = 241
+    Height = 265
+    BorderWidth = 2
+    BorderStyle = bsSingle
+    TabOrder = 15
+    Visible = False
+    object lbCadastroCargo: TLabel
+      Left = 73
+      Top = 16
+      Width = 88
+      Height = 13
+      Caption = 'Cadastro de Cargo'
+    end
+    object lbNovoCargo: TLabel
+      Left = 25
+      Top = 56
+      Width = 31
+      Height = 13
+      Caption = 'Cargo:'
+    end
+    object edNovoCargo: TEdit
+      Left = 65
+      Top = 52
+      Width = 152
+      Height = 21
+      TabOrder = 0
+    end
+    object btSalvarCargo: TButton
+      Left = 142
+      Top = 80
+      Width = 75
+      Height = 25
+      Caption = 'Salvar'
+      TabOrder = 1
+      OnClick = btSalvarCargoClick
+    end
+    object grCargos: TDBGrid
+      Left = 16
+      Top = 113
+      Width = 201
+      Height = 104
+      DataSource = dsCargo
+      TabOrder = 2
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      OnCellClick = grCargosCellClick
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'bdCODIGOCARGO'
+          Title.Caption = 'C'#243'digo'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'bdCARGO'
+          Title.Caption = 'Cargo'
+          Visible = True
+        end>
+    end
+    object btDeletarCargo: TButton
+      Left = 64
+      Top = 80
+      Width = 75
+      Height = 25
+      Caption = 'Deletar'
+      Enabled = False
+      TabOrder = 3
+      OnClick = btDeletarCargoClick
+    end
+    object btFecharCargo: TButton
+      Left = 143
+      Top = 227
+      Width = 75
+      Height = 25
+      Caption = 'Fechar'
+      TabOrder = 4
+      OnClick = btFecharCargoClick
+    end
   end
   object dsFolhaPagamento: TDataSource
     DataSet = cdsFolhaPagamento
@@ -888,5 +1014,46 @@ object frFolhaPagamento: TfrFolhaPagamento
     object cdsFolhaPagamentobdSALARIOLIQUIDO: TCurrencyField
       FieldName = 'bdSALARIOLIQUIDO'
     end
+  end
+  object cdsCargo: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'bdCODIGOCARGO'
+        DataType = ftInteger
+      end
+      item
+        Name = 'bdCARGO'
+        DataType = ftString
+        Size = 50
+      end>
+    IndexDefs = <
+      item
+        Name = 'iCODIGO'
+        Fields = 'bdCODIGOCARGO'
+        Options = [ixPrimary, ixUnique]
+      end>
+    IndexName = 'iCODIGO'
+    Params = <>
+    StoreDefs = True
+    Left = 1072
+    Top = 16
+    Data = {
+      4C0000009619E0BD0100000018000000020000000000030000004C000D626443
+      4F4449474F434152474F0400010000000000076264434152474F010049000000
+      01000557494454480200020032000000}
+    object cdsCargobdCODIGOCARGO: TIntegerField
+      FieldName = 'bdCODIGOCARGO'
+    end
+    object cdsCargobdCARGO: TStringField
+      FieldName = 'bdCARGO'
+      Size = 50
+    end
+  end
+  object dsCargo: TDataSource
+    DataSet = cdsCargo
+    Left = 1096
+    Top = 16
   end
 end
