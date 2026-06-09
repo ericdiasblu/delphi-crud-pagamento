@@ -145,6 +145,11 @@ type
     procedure grCargosCellClick(Column: TColumn);
     procedure btFecharCargoClick(Sender: TObject);
     procedure cbOrdenacaoSelect(Sender: TObject);
+    procedure edNomeFuncionarioKeyPress(Sender: TObject; var Key: Char);
+    procedure edBuscaNomeKeyPress(Sender: TObject; var Key: Char);
+    procedure edAnoKeyPress(Sender: TObject; var Key: Char);
+    procedure edEnderecoKeyPress(Sender: TObject; var Key: Char);
+    procedure edTelefoneKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
 
@@ -201,6 +206,8 @@ type
     procedure pLimparCamposCadastroFuncionario;
 
     // Validacoes
+    procedure pValidaCaracteres(var Key: Char);
+
     function fValidarCamposFuncionario: Boolean;
     function fValidarCamposFolha: Boolean;
     function fValidarCampoSalarioBase: Boolean;
@@ -235,10 +242,10 @@ end;
 procedure TfrFolhaPagamento.btSalvarFuncionarioClick(Sender: TObject);
 begin
   wCodigoFuncionario     := StrToIntDef(edCodigoFuncionario.Text,0);
-  wNomeFuncionario       := edNomeFuncionario.Text;
+  wNomeFuncionario       := Trim(edNomeFuncionario.Text);
   wCargoFuncionario      := cbCargo.Text;
-  wEnderecoFuncionario   := edEndereco.Text;
-  wTelefoneFuncionario   := edTelefone.Text;
+  wEnderecoFuncionario   := Trim(edEndereco.Text);
+  wTelefoneFuncionario   := Trim(edTelefone.Text);
 
   if not fValidarCamposFuncionario then
      Exit;
@@ -1058,6 +1065,52 @@ begin
      begin
        cdsFolhaPagamento.IndexFieldNames := 'bdANO';
      end
+end;
+
+procedure TfrFolhaPagamento.edNomeFuncionarioKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  pValidaCaracteres(Key);
+end;
+
+procedure TfrFolhaPagamento.pValidaCaracteres(var Key: Char);
+begin
+  if not (Key in ['a'..'z', 'A'..'Z', 'à'..'ü', 'À'..'Ü', 'ç', 'Ç', #8, #32]) then
+     begin
+       Key := #0;
+     end;
+end;
+
+procedure TfrFolhaPagamento.edBuscaNomeKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  pValidaCaracteres(Key);
+end;
+
+procedure TfrFolhaPagamento.edAnoKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (Key in ['0'..'9',#8]) then
+     begin
+       Key := #0;
+     end;
+end;
+
+procedure TfrFolhaPagamento.edEnderecoKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if not (Key in [',','0'..'9','a'..'z', 'A'..'Z', 'à'..'ü', 'À'..'Ü', 'ç', 'Ç', #8, #32]) then
+     begin
+       Key := #0;
+     end;
+end;
+
+procedure TfrFolhaPagamento.edTelefoneKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if not (Key in ['0'..'9','(',')','-',#8]) then
+     begin
+       Key := #0;
+     end;
 end;
 
 end.

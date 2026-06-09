@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 243
-  Top = 17
+  Left = 316
+  Top = 0
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
   ClientHeight = 702
-  ClientWidth = 659
+  ClientWidth = 661
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -477,6 +477,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Height = 21
       TabOrder = 1
       OnExit = edAnoExit
+      OnKeyPress = edAnoKeyPress
     end
   end
   object btConsultar: TButton
@@ -584,6 +585,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 393
       Height = 21
       TabOrder = 3
+      OnKeyPress = edBuscaNomeKeyPress
     end
   end
   object pnCadastroFuncionario: TPanel
@@ -651,6 +653,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 289
       Height = 21
       TabOrder = 1
+      OnKeyPress = edNomeFuncionarioKeyPress
     end
     object cbCargo: TComboBox
       Left = 72
@@ -673,6 +676,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 289
       Height = 21
       TabOrder = 3
+      OnKeyPress = edEnderecoKeyPress
     end
     object edTelefone: TEdit
       Left = 72
@@ -680,6 +684,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 289
       Height = 21
       TabOrder = 4
+      OnKeyPress = edTelefoneKeyPress
     end
     object btFechar: TButton
       Left = 285
