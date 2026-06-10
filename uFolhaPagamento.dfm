@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 316
-  Top = 0
+  Left = 241
+  Top = 75
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
   ClientHeight = 702
-  ClientWidth = 661
+  ClientWidth = 1310
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -635,7 +635,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
     object lbTelefone: TLabel
       Left = 19
-      Top = 145
+      Top = 148
       Width = 45
       Height = 13
       Caption = 'Telefone:'
@@ -647,6 +647,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Height = 21
       TabOrder = 0
       OnExit = edCodigoFuncionarioExit
+      OnKeyPress = edCodigoFuncionarioKeyPress
     end
     object edNomeFuncionario: TEdit
       Left = 72
@@ -679,21 +680,13 @@ object frFolhaPagamento: TfrFolhaPagamento
       TabOrder = 3
       OnKeyPress = edEnderecoKeyPress
     end
-    object edTelefone: TEdit
-      Left = 72
-      Top = 143
-      Width = 289
-      Height = 21
-      TabOrder = 4
-      OnKeyPress = edTelefoneKeyPress
-    end
     object btFechar: TButton
       Left = 285
       Top = 184
       Width = 75
       Height = 25
       Caption = 'Fechar'
-      TabOrder = 5
+      TabOrder = 4
       OnClick = btFecharClick
     end
     object btSalvarFuncionario: TButton
@@ -702,7 +695,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 75
       Height = 25
       Caption = 'Salvar'
-      TabOrder = 6
+      TabOrder = 5
       OnClick = btSalvarFuncionarioClick
     end
     object btDeletarFuncionario: TButton
@@ -712,7 +705,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Height = 25
       Caption = 'Deletar'
       Enabled = False
-      TabOrder = 7
+      TabOrder = 6
       OnClick = btDeletarFuncionarioClick
     end
     object btCadastrarCargo: TButton
@@ -727,8 +720,18 @@ object frFolhaPagamento: TfrFolhaPagamento
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 7
       OnClick = btCadastrarCargoClick
+    end
+    object edTelefone: TMaskEdit
+      Left = 72
+      Top = 144
+      Width = 269
+      Height = 21
+      EditMask = '!\(99\) 0 0000-0000;1;_'
+      MaxLength = 16
+      TabOrder = 8
+      Text = '(  )       -    '
     end
   end
   object gbConsulta: TGroupBox
@@ -819,6 +822,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 152
       Height = 21
       TabOrder = 0
+      OnKeyPress = edNovoCargoKeyPress
     end
     object btSalvarCargo: TButton
       Left = 142

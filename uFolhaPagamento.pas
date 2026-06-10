@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, StdCtrls, Grids, DBGrids, DB, DBClient;
+  Dialogs, ExtCtrls, StdCtrls, Grids, DBGrids, DB, DBClient, Mask;
 
 type
   TfrFolhaPagamento = class(TForm)
@@ -25,7 +25,6 @@ type
     lbEndereco: TLabel;
     edEndereco: TEdit;
     lbTelefone: TLabel;
-    edTelefone: TEdit;
     btFechar: TButton;
     btSalvarFuncionario: TButton;
     gbProventos: TGroupBox;
@@ -114,6 +113,7 @@ type
     btFecharCargo: TButton;
     Label1: TLabel;
     cbOrdenacao: TComboBox;
+    edTelefone: TMaskEdit;
     procedure btCadastrarClick(Sender: TObject);
     procedure btFecharClick(Sender: TObject);
     procedure btSalvarFuncionarioClick(Sender: TObject);
@@ -150,6 +150,8 @@ type
     procedure edAnoKeyPress(Sender: TObject; var Key: Char);
     procedure edEnderecoKeyPress(Sender: TObject; var Key: Char);
     procedure edTelefoneKeyPress(Sender: TObject; var Key: Char);
+    procedure edCodigoFuncionarioKeyPress(Sender: TObject; var Key: Char);
+    procedure edNovoCargoKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
 
@@ -207,6 +209,7 @@ type
 
     // Validacoes
     procedure pValidaCaracteres(var Key: Char);
+    procedure pValidaCaracteresInteiros(var Key: Char);
 
     function fValidarCamposFuncionario: Boolean;
     function fValidarCamposFolha: Boolean;
@@ -729,7 +732,7 @@ begin
   if wEnderecoFuncionario = '' then
      wMensagem := wMensagem + 'endereço, ';
 
-  if wTelefoneFuncionario = '' then
+  if wTelefoneFuncionario = '(__) _ ____-' then
      wMensagem := wMensagem + 'telefone, ';
 
   if wMensagem <> 'Informe o ' then
@@ -939,6 +942,8 @@ begin
         if edCodigo.Text <> '' then
            pBuscarFolha;
      end;
+
+  pValidaCaracteresInteiros(Key);
 end;
 
 procedure TfrFolhaPagamento.edAnoExit(Sender: TObject);
@@ -1067,6 +1072,8 @@ begin
      end
 end;
 
+// novas validacoes
+
 procedure TfrFolhaPagamento.edNomeFuncionarioKeyPress(Sender: TObject;
   var Key: Char);
 begin
@@ -1089,10 +1096,7 @@ end;
 
 procedure TfrFolhaPagamento.edAnoKeyPress(Sender: TObject; var Key: Char);
 begin
-  if not (Key in ['0'..'9',#8]) then
-     begin
-       Key := #0;
-     end;
+  pValidaCaracteresInteiros(Key)
 end;
 
 procedure TfrFolhaPagamento.edEnderecoKeyPress(Sender: TObject;
@@ -1111,6 +1115,26 @@ begin
      begin
        Key := #0;
      end;
+end;
+
+procedure TfrFolhaPagamento.pValidaCaracteresInteiros(var Key: Char);
+begin
+  if not (Key in ['0'..'9',#8]) then
+     begin
+       Key := #0;
+     end;
+end;
+
+procedure TfrFolhaPagamento.edCodigoFuncionarioKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  pValidaCaracteresInteiros(Key);
+end;
+
+procedure TfrFolhaPagamento.edNovoCargoKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  pValidaCaracteres(Key);
 end;
 
 end.
