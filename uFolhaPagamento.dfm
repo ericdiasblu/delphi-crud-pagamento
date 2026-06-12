@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 241
-  Top = 75
+  Left = 155
+  Top = 70
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
-  ClientHeight = 702
-  ClientWidth = 1310
+  ClientHeight = 706
+  ClientWidth = 1174
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +21,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 57
     Caption = 'Funcion'#225'rio'
-    TabOrder = 0
+    TabOrder = 1
     object lbNome: TLabel
       Left = 62
       Top = 27
@@ -40,9 +40,9 @@ object frFolhaPagamento: TfrFolhaPagamento
       Left = 104
       Top = 22
       Width = 169
-      Height = 22
+      Height = 19
       Style = csOwnerDrawFixed
-      ItemHeight = 16
+      ItemHeight = 13
       TabOrder = 0
       OnSelect = cbNomeSelect
     end
@@ -85,7 +85,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
     object lbTotal: TLabel
       Left = 66
-      Top = 108
+      Top = 109
       Width = 27
       Height = 13
       Caption = 'Total:'
@@ -122,7 +122,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
     object edTotalProventos: TEdit
       Left = 104
-      Top = 104
+      Top = 105
       Width = 169
       Height = 21
       Hint = '0,00'
@@ -141,28 +141,28 @@ object frFolhaPagamento: TfrFolhaPagamento
     Caption = 'Descontos'
     TabOrder = 5
     object lbINSS: TLabel
-      Left = 66
+      Left = 67
       Top = 32
       Width = 28
       Height = 13
       Caption = 'INSS:'
     end
     object lbIrrf: TLabel
-      Left = 66
+      Left = 67
       Top = 58
       Width = 28
       Height = 13
       Caption = 'IRRF:'
     end
     object lbValeTransporte: TLabel
-      Left = 16
+      Left = 17
       Top = 84
       Width = 78
       Height = 13
       Caption = 'Vale Transporte:'
     end
     object lbTotalDescontos: TLabel
-      Left = 67
+      Left = 68
       Top = 108
       Width = 27
       Height = 13
@@ -213,21 +213,21 @@ object frFolhaPagamento: TfrFolhaPagamento
     Caption = 'Resultado'
     TabOrder = 6
     object lbResultadoTotalProventos: TLabel
-      Left = 13
+      Left = 15
       Top = 36
       Width = 78
       Height = 13
       Caption = 'Total Proventos:'
     end
     object lbResultadoTotalDescontos: TLabel
-      Left = 309
+      Left = 310
       Top = 36
       Width = 81
       Height = 13
       Caption = 'Total Descontos:'
     end
     object lbSalarioLiquido: TLabel
-      Left = 18
+      Left = 20
       Top = 59
       Width = 74
       Height = 13
@@ -295,7 +295,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 129
     DataSource = dsFolhaPagamento
-    TabOrder = 11
+    TabOrder = 12
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
     TitleFont.Height = -11
@@ -434,16 +434,16 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 49
     Caption = 'Identifica'#231#227'o'
-    TabOrder = 12
+    TabOrder = 0
     object lbMes: TLabel
-      Left = 71
+      Left = 72
       Top = 24
       Width = 23
       Height = 13
       Caption = 'M'#234's:'
     end
     object lbAno: TLabel
-      Left = 367
+      Left = 368
       Top = 24
       Width = 22
       Height = 13
@@ -497,7 +497,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Height = 329
     BorderWidth = 2
     BorderStyle = bsSingle
-    TabOrder = 13
+    TabOrder = 14
     Visible = False
     object lbTituloFuncionario: TLabel
       Left = 216
@@ -596,7 +596,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Height = 233
     BorderWidth = 2
     BorderStyle = bsSingle
-    TabOrder = 1
+    TabOrder = 13
     Visible = False
     object lbCadastroFuncionario: TLabel
       Left = 144
@@ -677,7 +677,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Top = 118
       Width = 289
       Height = 21
-      TabOrder = 3
+      TabOrder = 4
       OnKeyPress = edEnderecoKeyPress
     end
     object btFechar: TButton
@@ -686,7 +686,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 75
       Height = 25
       Caption = 'Fechar'
-      TabOrder = 4
+      TabOrder = 8
       OnClick = btFecharClick
     end
     object btSalvarFuncionario: TButton
@@ -695,7 +695,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 75
       Height = 25
       Caption = 'Salvar'
-      TabOrder = 5
+      TabOrder = 7
       OnClick = btSalvarFuncionarioClick
     end
     object btDeletarFuncionario: TButton
@@ -720,18 +720,18 @@ object frFolhaPagamento: TfrFolhaPagamento
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 3
       OnClick = btCadastrarCargoClick
     end
     object edTelefone: TMaskEdit
       Left = 72
       Top = 144
-      Width = 269
+      Width = 249
       Height = 21
-      EditMask = '!\(99\) 0 0000-0000;1;_'
-      MaxLength = 16
-      TabOrder = 8
-      Text = '(  )       -    '
+      EditMask = '(99) 9999-9999;1;_'
+      MaxLength = 14
+      TabOrder = 5
+      Text = '(  )     -    '
     end
   end
   object gbConsulta: TGroupBox
@@ -740,7 +740,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 49
     Caption = 'Consulta'
-    TabOrder = 14
+    TabOrder = 11
     object lbCodigo: TLabel
       Left = 55
       Top = 20

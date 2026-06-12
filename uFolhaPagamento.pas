@@ -476,7 +476,7 @@ begin
       cdsFolhaPagamento.Next;
     end;
 
-   ShowMessage('Cadastro Editado com Sucesso');
+   ShowMessage('Cadastro editado com sucesso');
    pLimparCamposCadastroFuncionario;
 end;
 
@@ -573,6 +573,7 @@ begin
        Exit;
      end;
 
+  cbOrdenacao.SetFocus; // tentativa de resolver criterio 11
   pCarregarFolha;
 end;
 
@@ -665,13 +666,13 @@ end;
 
 procedure TfrFolhaPagamento.pModoCadastro;
 begin
-  lbCadastroFuncionario.Caption := 'Cadastro de funcionário';
+  lbCadastroFuncionario.Caption := 'Cadastro de Funcionário';
   btDeletarFuncionario.Enabled := False;
 end;
 
 procedure TfrFolhaPagamento.pModoConsulta;
 begin
-  lbCadastroFuncionario.Caption := 'Consulta de funcionário';
+  lbCadastroFuncionario.Caption := 'Consulta de Funcionário';
   wConsultaAtiva := True;
   btDeletarFuncionario.Enabled := True;
 end;
@@ -732,8 +733,10 @@ begin
   if wEnderecoFuncionario = '' then
      wMensagem := wMensagem + 'endereço, ';
 
-  if wTelefoneFuncionario = '(__) _ ____-' then
-     wMensagem := wMensagem + 'telefone, ';
+  if wTelefoneFuncionario = '(  )     -' then
+     begin
+       wMensagem := wMensagem + 'telefone, ';
+     end;
 
   if wMensagem <> 'Informe o ' then
      begin
@@ -1021,7 +1024,7 @@ begin
         if MessageDlg('Deseja excluir este cargo?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
            begin
              cdsCargo.Delete;
-             cbCargo.Items.Delete(cbCargo.Items.IndexOf(wNovoCargo));
+             cbCargo.Items.Delete(cbCargo.Items.IndexOf(edNovoCargo.Text));
              ShowMessage('Cargo deletado com sucesso');
              btDeletarCargo.Enabled := False;
              edNovoCargo.Clear;
