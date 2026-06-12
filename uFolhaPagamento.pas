@@ -221,6 +221,9 @@ type
     function fCalcularPrimeiraFaixa: Currency;
     function fCalcularSegundaFaixa: Currency;
     function fCalcularTerceiraFaixa: Currency;
+
+    // IRRF
+    function fCalcularIrrf: Currency;
   public
     { Public declarations }
   end;
@@ -1138,6 +1141,11 @@ procedure TfrFolhaPagamento.edNovoCargoKeyPress(Sender: TObject;
   var Key: Char);
 begin
   pValidaCaracteres(Key);
+end;
+
+function TfrFolhaPagamento.fCalcularIrrf: Currency;
+begin
+
 end;
 
 end.

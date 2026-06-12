@@ -295,6 +295,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 129
     DataSource = dsFolhaPagamento
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 12
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -528,6 +529,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 449
       Height = 145
       DataSource = dsFuncionarios
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText

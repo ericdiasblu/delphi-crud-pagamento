@@ -40,7 +40,8 @@ object frFolhaPagamento: TfrFolhaPagamento
       Left = 104
       Top = 22
       Width = 169
-      Height = 21
+      Height = 19
+      Style = csOwnerDrawFixed
       ItemHeight = 13
       TabOrder = 0
       OnSelect = cbNomeSelect
