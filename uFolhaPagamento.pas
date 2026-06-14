@@ -114,6 +114,7 @@ type
     Label1: TLabel;
     cbOrdenacao: TComboBox;
     edTelefone: TMaskEdit;
+    pnPrincipal: TPanel;
     procedure btCadastrarClick(Sender: TObject);
     procedure btFecharClick(Sender: TObject);
     procedure btSalvarFuncionarioClick(Sender: TObject);
@@ -152,6 +153,7 @@ type
     procedure edTelefoneKeyPress(Sender: TObject; var Key: Char);
     procedure edCodigoFuncionarioKeyPress(Sender: TObject; var Key: Char);
     procedure edNovoCargoKeyPress(Sender: TObject; var Key: Char);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
 
@@ -210,6 +212,9 @@ type
     procedure pAbrirConsulta;
     procedure pLimparCampos;
     procedure pLimparCamposCadastroFuncionario;
+
+    // Interface
+    procedure pCentralizarPainel(APainel: TPanel);
 
     // Validacoes
     procedure pValidaCaracteres(var Key: Char);
@@ -277,8 +282,7 @@ end;
 procedure TfrFolhaPagamento.btConsultarClick(Sender: TObject);
 begin
   pnConsultaFuncionarios.Visible := True;
-  pnConsultaFuncionarios.Top  := 100;
-  pnConsultaFuncionarios.Left := 100;
+  pCentralizarPainel(pnConsultaFuncionarios);
 end;
 
 procedure TfrFolhaPagamento.btBuscarClick(Sender: TObject);
@@ -331,7 +335,7 @@ end;
 procedure TfrFolhaPagamento.btFecharClick(Sender: TObject);
 begin
   pnCadastroFuncionario.Visible := False;
-  pnCadastroFuncionario.Left    := 648;
+  //pnCadastroFuncionario.Left    := 648;
 
   pLimparCamposCadastroFuncionario;
 
@@ -345,8 +349,8 @@ procedure TfrFolhaPagamento.btFecharConsultaFuncionarioClick(
   Sender: TObject);
 begin
   pnConsultaFuncionarios.Visible := False;
-  pnConsultaFuncionarios.Top  := 280;
-  pnConsultaFuncionarios.Left := 680;
+  //pnConsultaFuncionarios.Top  := 280;
+  //pnConsultaFuncionarios.Left := 680;
 end;
 
 // Eventos dos componentes
@@ -688,8 +692,7 @@ end;
 procedure TfrFolhaPagamento.pExibirCadastro;
 begin
   pnCadastroFuncionario.Visible  := True;
-  pnCadastroFuncionario.Left := 130;
-  pnCadastroFuncionario.Top := 100;
+  pCentralizarPainel(pnCadastroFuncionario);
 end;
 
 procedure TfrFolhaPagamento.pModoCadastro;
@@ -1006,8 +1009,7 @@ procedure TfrFolhaPagamento.btCadastrarCargoClick(Sender: TObject);
 begin
   pnCargo.Visible := True;
   pnCadastroFuncionario.Visible := False;
-  pnCargo.Left := 190;
-  pnCargo.Top := 100;
+  pCentralizarPainel(pnCargo);
 end;
 
 procedure TfrFolhaPagamento.btSalvarCargoClick(Sender: TObject);
@@ -1224,6 +1226,27 @@ begin
 
     cdsFolhaPagamento.Next;
   end;
+end;
+
+procedure TfrFolhaPagamento.FormResize(Sender: TObject);
+begin
+  pnPrincipal.Left := (ClientWidth - pnPrincipal.Width) div 2;
+  pnPrincipal.Top  := (ClientHeight - pnPrincipal.Height) div 2;
+
+  if pnCadastroFuncionario.Visible then
+     pCentralizarPainel(pnCadastroFuncionario);
+
+  if pnConsultaFuncionarios.Visible then
+     pCentralizarPainel(pnConsultaFuncionarios);
+
+  if pnCargo.Visible then
+     pCentralizarPainel(pnCargo);
+end;
+
+procedure TfrFolhaPagamento.pCentralizarPainel(APainel: TPanel);
+begin
+  APainel.Left := (ClientWidth - APainel.Width) div 2;
+  APainel.Top  := (ClientHeight - APainel.Height) div 2;
 end;
 
 end.
