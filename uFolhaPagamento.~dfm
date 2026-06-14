@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 155
-  Top = 70
+  Left = 573
+  Top = 214
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
-  ClientHeight = 708
-  ClientWidth = 1176
+  ClientHeight = 712
+  ClientWidth = 1180
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -295,6 +295,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     Width = 625
     Height = 129
     DataSource = dsFolhaPagamento
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
     TabOrder = 12
     TitleFont.Charset = DEFAULT_CHARSET
     TitleFont.Color = clWindowText
@@ -528,6 +529,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 449
       Height = 145
       DataSource = dsFuncionarios
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
@@ -760,7 +762,6 @@ object frFolhaPagamento: TfrFolhaPagamento
       Top = 16
       Width = 169
       Height = 21
-      TabStop = False
       TabOrder = 0
       OnEnter = edCodigoEnter
       OnExit = edCodigoExit
@@ -773,7 +774,9 @@ object frFolhaPagamento: TfrFolhaPagamento
       Height = 22
       Style = csOwnerDrawFixed
       ItemHeight = 16
+      ItemIndex = 0
       TabOrder = 1
+      Text = 'Folha'
       OnSelect = cbOrdenacaoSelect
       Items.Strings = (
         'Folha'

@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 155
-  Top = 70
+  Left = 573
+  Top = 214
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
-  ClientHeight = 706
-  ClientWidth = 1174
+  ClientHeight = 712
+  ClientWidth = 1180
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -728,12 +728,12 @@ object frFolhaPagamento: TfrFolhaPagamento
     object edTelefone: TMaskEdit
       Left = 72
       Top = 144
-      Width = 249
+      Width = 245
       Height = 21
-      EditMask = '(99) 9999-9999;1;_'
-      MaxLength = 14
+      EditMask = '(99)9999-9999;1;_'
+      MaxLength = 13
       TabOrder = 5
-      Text = '(  )     -    '
+      Text = '(  )    -    '
     end
   end
   object gbConsulta: TGroupBox
@@ -762,7 +762,6 @@ object frFolhaPagamento: TfrFolhaPagamento
       Top = 16
       Width = 169
       Height = 21
-      TabStop = False
       TabOrder = 0
       OnEnter = edCodigoEnter
       OnExit = edCodigoExit
@@ -775,7 +774,9 @@ object frFolhaPagamento: TfrFolhaPagamento
       Height = 22
       Style = csOwnerDrawFixed
       ItemHeight = 16
+      ItemIndex = 0
       TabOrder = 1
+      Text = 'Folha'
       OnSelect = cbOrdenacaoSelect
       Items.Strings = (
         'Folha'
