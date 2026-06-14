@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 689
-  Top = 138
+  Left = 252
+  Top = 130
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
   ClientHeight = 695
-  ClientWidth = 647
+  ClientWidth = 645
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,13 +17,13 @@ object frFolhaPagamento: TfrFolhaPagamento
   PixelsPerInch = 96
   TextHeight = 13
   object pnPrincipal: TPanel
-    Left = 0
+    Left = -2
     Top = 0
     Width = 649
     Height = 697
     TabOrder = 3
     object gbIdentificacao: TGroupBox
-      Left = 13
+      Left = 11
       Top = 13
       Width = 625
       Height = 49
@@ -76,7 +76,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
     end
     object gbFuncionario: TGroupBox
-      Left = 14
+      Left = 12
       Top = 70
       Width = 625
       Height = 57
@@ -84,14 +84,14 @@ object frFolhaPagamento: TfrFolhaPagamento
       TabOrder = 1
       object lbNome: TLabel
         Left = 62
-        Top = 27
+        Top = 25
         Width = 31
         Height = 13
         Caption = 'Nome:'
       end
       object lbCargo: TLabel
         Left = 360
-        Top = 27
+        Top = 25
         Width = 31
         Height = 13
         Caption = 'Cargo:'
@@ -108,7 +108,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
       object edCargo: TEdit
         Left = 400
-        Top = 23
+        Top = 21
         Width = 193
         Height = 21
         Enabled = False
@@ -134,7 +134,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       OnClick = btConsultarClick
     end
     object gbDescontos: TGroupBox
-      Left = 307
+      Left = 308
       Top = 184
       Width = 329
       Height = 145
@@ -163,7 +163,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
       object lbTotalDescontos: TLabel
         Left = 68
-        Top = 108
+        Top = 109
         Width = 27
         Height = 13
         Caption = 'Total:'
@@ -197,7 +197,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
       object edTotalDescontos: TEdit
         Left = 104
-        Top = 104
+        Top = 105
         Width = 193
         Height = 21
         Enabled = False
@@ -206,7 +206,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
     end
     object gbProventos: TGroupBox
-      Left = 11
+      Left = 12
       Top = 184
       Width = 289
       Height = 145
@@ -235,7 +235,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
       object lbTotal: TLabel
         Left = 66
-        Top = 109
+        Top = 110
         Width = 27
         Height = 13
         Caption = 'Total:'
@@ -272,7 +272,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
       object edTotalProventos: TEdit
         Left = 104
-        Top = 105
+        Top = 106
         Width = 169
         Height = 21
         Hint = '0,00'
@@ -284,7 +284,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
     end
     object gbResultado: TGroupBox
-      Left = 11
+      Left = 12
       Top = 336
       Width = 625
       Height = 97
@@ -306,7 +306,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
       object lbSalarioLiquido: TLabel
         Left = 20
-        Top = 59
+        Top = 61
         Width = 74
         Height = 13
         Caption = 'Sal'#225'rio L'#237'quido:'
@@ -331,7 +331,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
       object edSalarioLiquido: TEdit
         Left = 104
-        Top = 56
+        Top = 58
         Width = 489
         Height = 21
         Enabled = False
@@ -378,7 +378,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       OnClick = btLimparClick
     end
     object gbConsulta: TGroupBox
-      Left = 11
+      Left = 12
       Top = 488
       Width = 625
       Height = 49
@@ -428,7 +428,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       end
     end
     object grFolhaPagamento: TDBGrid
-      Left = 11
+      Left = 12
       Top = 552
       Width = 625
       Height = 129
@@ -560,8 +560,8 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
   end
   object pnConsultaFuncionarios: TPanel
-    Left = 1304
-    Top = 360
+    Left = 656
+    Top = 272
     Width = 489
     Height = 329
     BorderWidth = 2
@@ -660,8 +660,8 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
   end
   object pnCadastroFuncionario: TPanel
-    Left = 1312
-    Top = 24
+    Left = 656
+    Top = 0
     Width = 385
     Height = 233
     BorderWidth = 2
@@ -805,8 +805,8 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
   end
   object pnCargo: TPanel
-    Left = 1704
-    Top = 24
+    Left = 1056
+    Top = 0
     Width = 241
     Height = 265
     BorderWidth = 2
