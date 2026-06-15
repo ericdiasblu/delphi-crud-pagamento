@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 130
-  Top = 2
+  Left = 178
+  Top = 93
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
-  ClientHeight = 697
-  ClientWidth = 1183
+  ClientHeight = 695
+  ClientWidth = 1127
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -30,14 +30,14 @@ object frFolhaPagamento: TfrFolhaPagamento
       Caption = 'Identifica'#231#227'o'
       TabOrder = 0
       object lbMes: TLabel
-        Left = 70
+        Left = 71
         Top = 24
         Width = 23
         Height = 13
         Caption = 'M'#234's:'
       end
       object lbAno: TLabel
-        Left = 368
+        Left = 370
         Top = 24
         Width = 22
         Height = 13
@@ -70,6 +70,7 @@ object frFolhaPagamento: TfrFolhaPagamento
         Top = 20
         Width = 193
         Height = 21
+        MaxLength = 4
         TabOrder = 1
         OnExit = edAnoExit
         OnKeyPress = edAnoKeyPress
@@ -308,7 +309,7 @@ object frFolhaPagamento: TfrFolhaPagamento
         Caption = 'Total Descontos:'
       end
       object lbSalarioLiquido: TLabel
-        Left = 20
+        Left = 19
         Top = 61
         Width = 74
         Height = 13
@@ -388,14 +389,14 @@ object frFolhaPagamento: TfrFolhaPagamento
       Caption = 'Consulta'
       TabOrder = 11
       object lbCodigo: TLabel
-        Left = 55
+        Left = 57
         Top = 20
         Width = 36
         Height = 13
         Caption = 'C'#243'digo:'
       end
       object Label1: TLabel
-        Left = 334
+        Left = 335
         Top = 20
         Width = 56
         Height = 13
@@ -471,7 +472,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           Expanded = False
           FieldName = 'bdCARGO'
           Title.Caption = 'Cargo'
-          Width = 48
+          Width = 74
           Visible = True
         end
         item
@@ -494,7 +495,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdSALARIOBASE'
           Title.Alignment = taRightJustify
           Title.Caption = 'Sal'#225'rio Base'
-          Width = 68
+          Width = 79
           Visible = True
         end
         item
@@ -502,7 +503,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdHORASEXTRAS'
           Title.Alignment = taRightJustify
           Title.Caption = 'Horas Extras'
-          Width = 77
+          Width = 91
           Visible = True
         end
         item
@@ -510,7 +511,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdOUTROS'
           Title.Alignment = taRightJustify
           Title.Caption = 'Outros'
-          Width = 47
+          Width = 85
           Visible = True
         end
         item
@@ -518,7 +519,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdTOTALPROVENTOS'
           Title.Alignment = taRightJustify
           Title.Caption = 'Total Proventos'
-          Width = 83
+          Width = 90
           Visible = True
         end
         item
@@ -573,14 +574,14 @@ object frFolhaPagamento: TfrFolhaPagamento
     TabOrder = 1
     Visible = False
     object lbTituloFuncionario: TLabel
-      Left = 216
+      Left = 214
       Top = 16
       Width = 60
       Height = 13
       Caption = 'Funcion'#225'rios'
     end
     object lbBuscaNome: TLabel
-      Left = 32
+      Left = 33
       Top = 60
       Width = 31
       Height = 13
@@ -673,7 +674,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     TabOrder = 0
     Visible = False
     object lbCadastroFuncionario: TLabel
-      Left = 144
+      Left = 133
       Top = 16
       Width = 112
       Height = 13
@@ -809,7 +810,7 @@ object frFolhaPagamento: TfrFolhaPagamento
     end
   end
   object pnCargo: TPanel
-    Left = 1056
+    Left = 1048
     Top = 0
     Width = 241
     Height = 265
@@ -818,11 +819,11 @@ object frFolhaPagamento: TfrFolhaPagamento
     TabOrder = 2
     Visible = False
     object lbCadastroCargo: TLabel
-      Left = 73
+      Left = 76
       Top = 16
-      Width = 88
+      Width = 87
       Height = 13
-      Caption = 'Cadastro de Cargo'
+      Caption = 'Cadastro de cargo'
     end
     object lbNovoCargo: TLabel
       Left = 25

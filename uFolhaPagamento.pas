@@ -202,6 +202,7 @@ type
     procedure pCadastrarFuncionario;
     procedure pEditarFuncionario;
     procedure pBuscarFuncionario;
+    procedure pConsultarFuncionario;
     procedure pDeletarFuncionario;
     procedure pSalvarFolha;
     procedure pBuscarFolha;
@@ -291,13 +292,7 @@ end;
 
 procedure TfrFolhaPagamento.btBuscarClick(Sender: TObject);
 begin
-  cdsFuncionario.IndexFieldNames := 'bdNOMEFUNCIONARIO';
-
-  if not cdsFuncionario.FindKey([edBuscaNome.Text]) then
-     begin
-       ShowMessage('Funcionário não encontrado');
-       Exit;
-     end;
+  pConsultarFuncionario;
 end;
 
 procedure TfrFolhaPagamento.btCalcularClick(Sender: TObject);
@@ -327,13 +322,16 @@ begin
   if cbNome.Enabled then
      cbNome.SetFocus;
      
-  btSalvarFolha.Enabled := False;
+  btSalvarFolha.Enabled  := False;
+  btDeletarFolha.Enabled := False;
 end;
 
 procedure TfrFolhaPagamento.btLimparClick(Sender: TObject);
 begin
   pLimparCampos;
   cbNome.SetFocus;
+  btSalvarFolha.Enabled := False;
+  btDeletarFolha.Enabled := False;
 end;
 
 procedure TfrFolhaPagamento.btFecharClick(Sender: TObject);
@@ -1139,6 +1137,11 @@ end;
 procedure TfrFolhaPagamento.edBuscaNomeKeyPress(Sender: TObject;
   var Key: Char);
 begin
+  if Key = #13 then
+     begin
+       pConsultarFuncionario;
+     end;
+
   pValidaCaracteres(Key);
 end;
 
@@ -1274,6 +1277,22 @@ procedure TfrFolhaPagamento.edOutrosKeyPress(Sender: TObject;
   var Key: Char);
 begin
   pValidaNumeros(Key)
+end;
+
+procedure TfrFolhaPagamento.pConsultarFuncionario;
+begin
+
+  if Trim(edBuscaNome.Text) = '' then
+  begin
+    cdsFuncionario.IndexFieldNames := 'bdNOMEFUNCIONARIO';
+    Exit;
+  end;
+
+  if not cdsFuncionario.Locate('bdNOMEFUNCIONARIO',edBuscaNome.Text,[loPartialKey,loCaseInsensitive]) then
+     begin
+       ShowMessage('Funcionário não encontrado');
+       Exit;
+     end;
 end;
 
 end.
