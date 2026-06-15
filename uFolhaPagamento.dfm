@@ -1,11 +1,11 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 618
-  Top = 120
+  Left = 130
+  Top = 2
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
-  ClientHeight = 695
-  ClientWidth = 645
+  ClientHeight = 697
+  ClientWidth = 1183
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -30,7 +30,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Caption = 'Identifica'#231#227'o'
       TabOrder = 0
       object lbMes: TLabel
-        Left = 72
+        Left = 70
         Top = 24
         Width = 23
         Height = 13
@@ -44,7 +44,7 @@ object frFolhaPagamento: TfrFolhaPagamento
         Caption = 'Ano:'
       end
       object cbMes: TComboBox
-        Left = 104
+        Left = 105
         Top = 19
         Width = 169
         Height = 22
@@ -121,7 +121,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 75
       Height = 25
       Caption = 'Cadastrar'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = btCadastrarClick
     end
     object btConsultar: TButton
@@ -130,7 +130,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 75
       Height = 25
       Caption = 'Consultar'
-      TabOrder = 3
+      TabOrder = 2
       OnClick = btConsultarClick
     end
     object gbDescontos: TGroupBox
@@ -249,6 +249,7 @@ object frFolhaPagamento: TfrFolhaPagamento
         Text = '0,00'
         OnEnter = edSalarioBaseEnter
         OnExit = edSalarioBaseExit
+        OnKeyPress = edSalarioBaseKeyPress
       end
       object edHorasExtras: TEdit
         Left = 104
@@ -259,6 +260,7 @@ object frFolhaPagamento: TfrFolhaPagamento
         Text = '0,00'
         OnEnter = edHorasExtrasEnter
         OnExit = edHorasExtrasExit
+        OnKeyPress = edHorasExtrasKeyPress
       end
       object edOutros: TEdit
         Left = 104
@@ -269,6 +271,7 @@ object frFolhaPagamento: TfrFolhaPagamento
         Text = '0,00'
         OnEnter = edOutrosEnter
         OnExit = edOutrosExit
+        OnKeyPress = edOutrosKeyPress
       end
       object edTotalProventos: TEdit
         Left = 104
@@ -481,6 +484,7 @@ object frFolhaPagamento: TfrFolhaPagamento
         item
           Expanded = False
           FieldName = 'bdANO'
+          Title.Alignment = taRightJustify
           Title.Caption = 'Ano'
           Width = 56
           Visible = True
@@ -522,7 +526,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdINSS'
           Title.Alignment = taRightJustify
           Title.Caption = 'INSS'
-          Width = 50
+          Width = 72
           Visible = True
         end
         item
@@ -530,7 +534,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdIRRF'
           Title.Alignment = taRightJustify
           Title.Caption = 'IRRF'
-          Width = 39
+          Width = 74
           Visible = True
         end
         item
@@ -538,7 +542,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdVALETRANSPORTE'
           Title.Alignment = taRightJustify
           Title.Caption = 'Vale Transporte'
-          Width = 138
+          Width = 98
           Visible = True
         end
         item
@@ -546,7 +550,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdTOTALDESCONTOS'
           Title.Alignment = taRightJustify
           Title.Caption = 'Total Descontos'
-          Width = 111
+          Width = 91
           Visible = True
         end
         item
@@ -554,7 +558,7 @@ object frFolhaPagamento: TfrFolhaPagamento
           FieldName = 'bdSALARIOLIQUIDO'
           Title.Alignment = taRightJustify
           Title.Caption = 'Sal'#225'rio L'#237'quido'
-          Width = 124
+          Width = 109
           Visible = True
         end>
     end
@@ -796,12 +800,12 @@ object frFolhaPagamento: TfrFolhaPagamento
     object edTelefone: TMaskEdit
       Left = 72
       Top = 144
-      Width = 245
+      Width = 241
       Height = 21
-      EditMask = '(99)9999-9999;1;_'
-      MaxLength = 13
+      EditMask = '(99)99999-9999;1;_'
+      MaxLength = 14
       TabOrder = 5
-      Text = '(  )    -    '
+      Text = '(  )     -    '
     end
   end
   object pnCargo: TPanel
@@ -850,6 +854,7 @@ object frFolhaPagamento: TfrFolhaPagamento
       Width = 201
       Height = 104
       DataSource = dsCargo
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
       TabOrder = 2
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText

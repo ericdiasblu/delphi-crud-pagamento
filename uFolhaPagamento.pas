@@ -154,6 +154,9 @@ type
     procedure edCodigoFuncionarioKeyPress(Sender: TObject; var Key: Char);
     procedure edNovoCargoKeyPress(Sender: TObject; var Key: Char);
     procedure FormResize(Sender: TObject);
+    procedure edSalarioBaseKeyPress(Sender: TObject; var Key: Char);
+    procedure edHorasExtrasKeyPress(Sender: TObject; var Key: Char);
+    procedure edOutrosKeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
 
@@ -219,6 +222,7 @@ type
     // Validacoes
     procedure pValidaCaracteres(var Key: Char);
     procedure pValidaCaracteresInteiros(var Key: Char);
+    procedure pValidaNumeros(var Key: Char);
 
     function fValidarCamposFuncionario: Boolean;
     function fValidarCamposFolha: Boolean;
@@ -335,7 +339,6 @@ end;
 procedure TfrFolhaPagamento.btFecharClick(Sender: TObject);
 begin
   pnCadastroFuncionario.Visible := False;
-  //pnCadastroFuncionario.Left    := 648;
 
   pLimparCamposCadastroFuncionario;
 
@@ -349,8 +352,6 @@ procedure TfrFolhaPagamento.btFecharConsultaFuncionarioClick(
   Sender: TObject);
 begin
   pnConsultaFuncionarios.Visible := False;
-  //pnConsultaFuncionarios.Top  := 280;
-  //pnConsultaFuncionarios.Left := 680;
 end;
 
 // Eventos dos componentes
@@ -894,8 +895,7 @@ end;
 procedure TfrFolhaPagamento.pAbrirConsulta;
 begin
   pnConsultaFuncionarios.Visible := True;
-  pnConsultaFuncionarios.Top  := 100;
-  pnConsultaFuncionarios.Left := 100;
+  pCentralizarPainel(pnConsultaFuncionarios);
 end;
 
 procedure TfrFolhaPagamento.btDeletarFuncionarioClick(Sender: TObject);
@@ -1090,6 +1090,7 @@ end;
 procedure TfrFolhaPagamento.btFecharCargoClick(Sender: TObject);
 begin
   pnCadastroFuncionario.Visible := True;
+  edNovoCargo.Clear;
   pnCargo.Visible := False;
   pnCargo.Left := 1072;
   pnCargo.Top  := 16;
@@ -1119,7 +1120,7 @@ begin
      end
 end;
 
-// novas validacoes
+// Novas validacoes
 
 procedure TfrFolhaPagamento.edNomeFuncionarioKeyPress(Sender: TObject;
   var Key: Char);
@@ -1247,6 +1248,32 @@ procedure TfrFolhaPagamento.pCentralizarPainel(APainel: TPanel);
 begin
   APainel.Left := (ClientWidth - APainel.Width) div 2;
   APainel.Top  := (ClientHeight - APainel.Height) div 2;
+end;
+
+procedure TfrFolhaPagamento.edSalarioBaseKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  pValidaNumeros(Key)
+end;
+
+procedure TfrFolhaPagamento.pValidaNumeros(var Key: Char);
+begin
+  if not (Key in ['0'..'9',',','.',#8]) then
+     begin
+       Key := #0;
+     end;
+end;
+
+procedure TfrFolhaPagamento.edHorasExtrasKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  pValidaNumeros(Key)
+end;
+
+procedure TfrFolhaPagamento.edOutrosKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  pValidaNumeros(Key)
 end;
 
 end.
