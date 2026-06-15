@@ -5,7 +5,7 @@ object frFolhaPagamento: TfrFolhaPagamento
   BorderWidth = 1
   Caption = 'Folha de Pagamento'
   ClientHeight = 695
-  ClientWidth = 1127
+  ClientWidth = 645
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

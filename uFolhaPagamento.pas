@@ -321,7 +321,7 @@ begin
 
   if cbNome.Enabled then
      cbNome.SetFocus;
-     
+
   btSalvarFolha.Enabled  := False;
   btDeletarFolha.Enabled := False;
 end;
@@ -330,14 +330,13 @@ procedure TfrFolhaPagamento.btLimparClick(Sender: TObject);
 begin
   pLimparCampos;
   cbNome.SetFocus;
-  btSalvarFolha.Enabled := False;
+  btSalvarFolha.Enabled  := False;
   btDeletarFolha.Enabled := False;
 end;
 
 procedure TfrFolhaPagamento.btFecharClick(Sender: TObject);
 begin
   pnCadastroFuncionario.Visible := False;
-
   pLimparCamposCadastroFuncionario;
 
   if wConsultaAtiva then
@@ -499,12 +498,13 @@ begin
            cdsFolhaPagamento.Edit;
            cdsFolhaPagamentobdNOME.AsString := wNomeFuncionario;
            cdsFolhaPagamento.Post;
-          end;
+         end;
+
       cdsFolhaPagamento.Next;
     end;
 
-   ShowMessage('Cadastro editado com sucesso');
-   pLimparCamposCadastroFuncionario;
+  ShowMessage('Cadastro editado com sucesso');
+  pLimparCamposCadastroFuncionario;
 end;
 
 procedure TfrFolhaPagamento.pBuscarFuncionario;
@@ -681,7 +681,6 @@ begin
   wInss := RoundTo(fCalcularInss, -2);
   wIrrf := RoundTo(fCalcularIrrf, -2);
   wValeTransporte := RoundTo((wSalarioBase * 0.06), -2);
-
   wTotalDescontos := RoundTo((wInss + wIrrf + wValeTransporte), -2);
   wSalarioLiquido := RoundTo((wTotalProventos - wTotalDescontos), -2);;
 end;
@@ -922,10 +921,10 @@ begin
             btDeletarFuncionario.Enabled := False;
           end
      end
-   else
-      begin
-        ShowMessage('Funcionário não encontrado');
-      end
+  else
+     begin
+       ShowMessage('Funcionário não encontrado');
+     end
 end;
 
 procedure TfrFolhaPagamento.pDeletarFolha;
@@ -934,13 +933,13 @@ begin
 
   if cdsFolhaPagamento.FindKey([edCodigo.Text]) then
      begin
-        if MessageDlg('Deseja excluir esta folha?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-           begin
-             cdsFolhaPagamento.Delete;
-             ShowMessage('Folha deletada com sucesso');
-             pLimparCampos;
-             btDeletarFolha.Enabled := False;
-           end
+       if MessageDlg('Deseja excluir esta folha?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+          begin
+            cdsFolhaPagamento.Delete;
+            ShowMessage('Folha deletada com sucesso');
+            pLimparCampos;
+            btDeletarFolha.Enabled := False;
+          end
       end
   else
      begin
@@ -979,14 +978,14 @@ procedure TfrFolhaPagamento.edCodigoKeyPress(Sender: TObject;
 begin
   if Key = #13 then
      begin
-        if edCodigo.Text <> '' then
-           begin
-             wBuscouPorEnter := True;
-             pBuscarFolha;
+       if edCodigo.Text <> '' then
+          begin
+            wBuscouPorEnter := True;
+            pBuscarFolha;
 
-             if wFolhaEncontrada then
-                cbOrdenacao.SetFocus;
-           end;
+            if wFolhaEncontrada then
+               cbOrdenacao.SetFocus;
+          end;
      end;
 
   pValidaCaracteresInteiros(Key);
@@ -1063,14 +1062,14 @@ begin
 
   if cdsCargo.FindKey([edNovoCargo.Text]) then
      begin
-        if MessageDlg('Deseja excluir este cargo?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-           begin
-             cdsCargo.Delete;
-             cbCargo.Items.Delete(cbCargo.Items.IndexOf(edNovoCargo.Text));
-             ShowMessage('Cargo deletado com sucesso');
-             btDeletarCargo.Enabled := False;
-             edNovoCargo.Clear;
-           end
+       if MessageDlg('Deseja excluir este cargo?', mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+          begin
+            cdsCargo.Delete;
+            cbCargo.Items.Delete(cbCargo.Items.IndexOf(edNovoCargo.Text));
+            ShowMessage('Cargo deletado com sucesso');
+            btDeletarCargo.Enabled := False;
+            edNovoCargo.Clear;
+          end
       end
   else
      begin
@@ -1220,16 +1219,15 @@ begin
   cdsFolhaPagamento.First;
 
   while not cdsFolhaPagamento.Eof do
-  begin
-    if cdsFolhaPagamentobdCODIGOFUNCIONARIO.AsInteger =
-       cdsFuncionariobdCODIGOFUNCIONARIO.AsInteger then
     begin
-      Result := True;
-      Exit;
-    end;
+      if cdsFolhaPagamentobdCODIGOFUNCIONARIO.AsInteger = cdsFuncionariobdCODIGOFUNCIONARIO.AsInteger then
+         begin
+           Result := True;
+           Exit;
+         end;
 
-    cdsFolhaPagamento.Next;
-  end;
+      cdsFolhaPagamento.Next;
+    end;
 end;
 
 procedure TfrFolhaPagamento.FormResize(Sender: TObject);
@@ -1281,12 +1279,11 @@ end;
 
 procedure TfrFolhaPagamento.pConsultarFuncionario;
 begin
-
   if Trim(edBuscaNome.Text) = '' then
-  begin
-    cdsFuncionario.IndexFieldNames := 'bdNOMEFUNCIONARIO';
-    Exit;
-  end;
+     begin
+       cdsFuncionario.IndexFieldNames := 'bdNOMEFUNCIONARIO';
+       Exit;
+     end;
 
   if not cdsFuncionario.Locate('bdNOMEFUNCIONARIO',edBuscaNome.Text,[loPartialKey,loCaseInsensitive]) then
      begin
