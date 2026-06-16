@@ -1,6 +1,6 @@
 object frFolhaPagamento: TfrFolhaPagamento
-  Left = 178
-  Top = 93
+  Left = 373
+  Top = 70
   BorderStyle = bsSingle
   BorderWidth = 1
   Caption = 'Folha de Pagamento'

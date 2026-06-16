@@ -959,17 +959,14 @@ begin
   cdsFolhaPagamento.First;
 
   while not cdsFolhaPagamento.Eof do
-  begin
-    if (cdsFolhaPagamentobdCODIGOFUNCIONARIO.AsInteger = cdsFuncionariobdCODIGOFUNCIONARIO.AsInteger)
-       and (cdsFolhaPagamentobdMES.AsString = cbMes.Text)
-       and (cdsFolhaPagamentobdANO.AsString = edAno.Text)
-       and (cdsFolhaPagamentobdCODIGO.AsInteger <> StrToIntDef(edCodigo.Text, 0)) then
     begin
-      Result := True;
-      Exit;
-    end;
+      if (cdsFolhaPagamentobdCODIGOFUNCIONARIO.AsInteger = cdsFuncionariobdCODIGOFUNCIONARIO.AsInteger) and (cdsFolhaPagamentobdMES.AsString = cbMes.Text) and (cdsFolhaPagamentobdANO.AsString = edAno.Text) and (cdsFolhaPagamentobdCODIGO.AsInteger <> StrToIntDef(edCodigo.Text, 0)) then
+         begin
+           Result := True;
+           Exit;
+         end;
 
-    cdsFolhaPagamento.Next;
+      cdsFolhaPagamento.Next;
   end;
 end;
 
@@ -1204,7 +1201,7 @@ begin
 
   else if wBaseCalculo <= 4664.68 then
      Result := (wBaseCalculo * 0.225) - 675.49
-
+     
   else
      Result := (wBaseCalculo * 0.275) - 908.73;
 
@@ -1288,7 +1285,6 @@ begin
   if not cdsFuncionario.Locate('bdNOMEFUNCIONARIO',edBuscaNome.Text,[loPartialKey,loCaseInsensitive]) then
      begin
        ShowMessage('Funcionário não encontrado');
-       Exit;
      end;
 end;
 
